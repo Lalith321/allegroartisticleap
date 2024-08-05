@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/MyWebsite/static/css/main.a3fc6f83.css",
-    "main.js": "/MyWebsite/static/js/main.18dbd066.js",
-    "static/js/787.fb265414.chunk.js": "/MyWebsite/static/js/787.fb265414.chunk.js",
-    "index.html": "/MyWebsite/index.html",
-    "main.a3fc6f83.css.map": "/MyWebsite/static/css/main.a3fc6f83.css.map",
-    "main.18dbd066.js.map": "/MyWebsite/static/js/main.18dbd066.js.map",
-    "787.fb265414.chunk.js.map": "/MyWebsite/static/js/787.fb265414.chunk.js.map"
+    "main.css": "/allegroartisticleap/static/css/main.a3fc6f83.css",
+    "main.js": "/allegroartisticleap/static/js/main.a9dafd01.js",
+    "static/js/787.fb265414.chunk.js": "/allegroartisticleap/static/js/787.fb265414.chunk.js",
+    "index.html": "/allegroartisticleap/index.html",
+    "main.a3fc6f83.css.map": "/allegroartisticleap/static/css/main.a3fc6f83.css.map",
+    "main.a9dafd01.js.map": "/allegroartisticleap/static/js/main.a9dafd01.js.map",
+    "787.fb265414.chunk.js.map": "/allegroartisticleap/static/js/787.fb265414.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a3fc6f83.css",
-    "static/js/main.18dbd066.js"
+    "static/js/main.a9dafd01.js"
   ]
 }
