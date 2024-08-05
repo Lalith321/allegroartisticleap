@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/allegroartisticleap/static/css/main.a3fc6f83.css",
-    "main.js": "/allegroartisticleap/static/js/main.978faa07.js",
+    "main.js": "/allegroartisticleap/static/js/main.cc75584a.js",
     "static/js/787.fb265414.chunk.js": "/allegroartisticleap/static/js/787.fb265414.chunk.js",
     "index.html": "/allegroartisticleap/index.html",
     "main.a3fc6f83.css.map": "/allegroartisticleap/static/css/main.a3fc6f83.css.map",
-    "main.978faa07.js.map": "/allegroartisticleap/static/js/main.978faa07.js.map",
+    "main.cc75584a.js.map": "/allegroartisticleap/static/js/main.cc75584a.js.map",
     "787.fb265414.chunk.js.map": "/allegroartisticleap/static/js/787.fb265414.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a3fc6f83.css",
-    "static/js/main.978faa07.js"
+    "static/js/main.cc75584a.js"
   ]
 }
