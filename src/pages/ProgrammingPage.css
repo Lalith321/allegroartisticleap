@@ -1,0 +1,104 @@
+.fullpage-pg{
+  position: relative;
+  height: 780px;
+  background-color: #141414;
+}
+.scrollpage-pg::-webkit-scrollbar {
+  display: none;
+}
+.scrollpage-pg{
+  position: relative;
+  top: 100px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+.xblock-pg {
+  height: 340px;
+  padding: 20px 0px;
+  display: inline-block;
+}
+.card-pg {
+  position: relative;
+  width: 300px;
+  height: 340px;
+  border-radius: var(--br-xl);
+  overflow: hidden;
+  display: inline-block;
+  margin: 0 10px;
+  background: #3B3B3B;
+  box-shadow: 0px 4px 4px 0px #000;
+}
+.work-item-pg {
+  height: 340px;
+}
+.work-item-pg img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--br-xl);
+  object-fit: cover; /* To ensure the image covers the entire space */
+  top: 0;
+  left: 0;
+}
+.work-item-pg h3{
+  position: absolute;
+  display: flex;
+  height: 30px;
+  top: 10px;
+  margin: 0px;
+  padding-right: 6px;
+  align-items: center;
+  background-color: rgb(214, 214, 214, 0.6) ;
+  backdrop-filter: blur(20px);
+  box-shadow: 1px 2px 5px rgb(94, 94, 94);
+  color: #616161;
+  font-family: var(--font-kaushan-script);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.description-container-pg{
+  position: absolute;
+  bottom: -290px;
+  height: 290px;
+  width: 296.8px;
+  border-radius: var(--br-xl);
+  border: 2px solid transparent;
+  background: linear-gradient(180deg, rgba(217, 217, 217, 0.40) 0%, rgba(217, 217, 217, 0.10) 100%);
+  box-shadow: 0px 4px 4px 2px #000;
+  backdrop-filter: blur(10px);
+  transition: 2s;
+  overflow-wrap: break-word;
+}
+.card-pg:hover .description-container-pg{
+  bottom: 0px;
+}
+.description-container-pg::before{
+  content: '';
+  position: absolute;
+  top: 2px; /* Adjust the position to fit within the border */
+  left: 2px; /* Adjust the position to fit within the border */
+  right: 2px; /* Adjust the position to fit within the border */
+  bottom: 2px; /* Adjust the position to fit within the border */
+  background: linear-gradient(140deg, rgba(255, 248, 248, 0.4) 0%, rgba(255, 0, 0, 0.1) 70%,  rgba(255, 0, 0, 0.4) 100%);
+  z-index: -1; /* Place it behind the .description-container content */
+  border-radius: var(--br-xl); /* Adjust the border-radius to fit within the border */
+}
+.description-container-pg p{
+  position: relative;
+  max-width: 240px;
+  height: 230px;
+  margin: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  color: #2d2d2d;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  white-space: normal;
+  line-height: 24px;
+}

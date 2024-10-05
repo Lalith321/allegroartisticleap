@@ -1,0 +1,59 @@
+.container {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	gap: 10px;
+  height: 1900px;
+	width: 95%;
+  top: 5%;
+	flex-wrap: wrap;
+}
+.obj3d {
+	position: sticky;
+	top: 5%;
+	overflow: visible;
+	stroke: #980021;
+	stroke-linejoin: round;
+}
+.ai {
+	position: sticky;
+	top: 5%;
+	overflow: visible;
+	stroke: #980021;
+	stroke-linejoin: round;
+}
+.digitalart {
+	position: sticky;
+	top: 5%;
+	overflow: visible;
+	stroke: #980021;
+	stroke-linejoin: round;
+}
+.programs {
+	position: sticky;
+	top: 5%;
+	overflow: visible;
+	stroke: #980021;
+	stroke-linejoin: round;
+}
+.obj3d-container, .ai-container, .digitalart-container, .programs-container {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 10px;
+  height: 1900px;
+  top: 0px;
+	flex-wrap: wrap;
+}
+.obj3d-container-whole, .ai-container-whole, .digitalart-container-whole, .programs-container-whole {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+  justify-content: center;
+  top: 0px;
+	flex-wrap: wrap;
+}
+
+

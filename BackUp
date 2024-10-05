@@ -1,0 +1,669 @@
+<motion.svg
+        width="124"
+        height="144"
+        viewBox="0 0 124 144"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="obj3d"
+      >
+        <motion.path
+          d="M136 87L76 57L136 27L196 57"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M136 167L196 137V57L136 87"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M76 57V137L136 167V87"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+      </motion.svg>
+      <motion.svg
+        width="448"
+        height="349"
+        viewBox="0 0 448 349"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="ai"
+      >
+        <motion.path
+          d="M144 227.5V112H276.5V227.5H144Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M160 209.5V130H258V209.5H160Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M177.5 193.5L188 146.5L199 193.5"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M181 176.5H195"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M214 149.5H237"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M226 150.5V190.5"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M237 189.5H215.5"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M175.5 112V58L151.5 44V21M151.5 21C154 20.5 160.5 20.5 161.5 13C162.491 5.56579 157.5 1 151.5 1C145.5 1 141 6 142 13.5C142.804 19.5294 148.5 20.5 151.5 21Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M253.64 111.5V85.5L273 70.5V47.5M273 47.5C275.5 47 282 47 283 39.5C283.991 32.0658 279 27.5 273 27.5C267 27.5 262.5 32.5 263.5 40C264.304 46.0294 270 47 273 47.5Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M198.639 112.5V89.5M198.639 89.5C201.139 89 207.639 89 208.639 81.5C209.63 74.0658 204.639 69.5 198.639 69.5C192.639 69.5 188.14 74.5 189.14 82C189.943 88.0294 195.639 89 198.639 89.5Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M235.639 112L235.639 70.5M235.639 70.5C238.139 70 244.639 70 245.639 62.5C246.63 55.0658 241.639 50.5 235.639 50.5C229.639 50.5 225.14 55.5 226.14 63C226.943 69.0294 232.639 70 235.639 70.5Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M277 130.139L303.5 130.139L315.5 103.5L349.5 103.5M349.5 103.5C350 106 350 112.5 357.5 113.5C364.934 114.491 369.5 109.5 369.5 103.5C369.5 97.5002 364.5 93.0004 357 94.0004C350.971 94.8042 350 100.5 349.5 103.5Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M277 198H320L366.5 216.221L400.5 216.221M400.5 216.221C401 218.721 401 225.221 408.5 226.221C415.934 227.212 420.5 222.221 420.5 216.221C420.5 210.221 415.5 205.721 408 206.721C401.971 207.525 401 213.221 400.5 216.221Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M277 157.779H347.5L393 113.139L427 113.139M427 113.139C427.5 115.639 427.5 122.139 435 123.139C442.434 124.13 447 119.139 447 113.139C447 107.139 442 102.64 434.5 103.64C428.471 104.443 427.5 110.139 427 113.139Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M277 179.139L311 179.139M311 179.139C311.5 181.639 311.5 188.139 319 189.139C326.434 190.13 331 185.139 331 179.139C331 173.139 326 168.64 318.5 169.64C312.471 170.443 311.5 176.139 311 179.139Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M145.007 212.486L118.507 212.493L106.5 228L72.5 228.009M72.5 228.009C71.9994 225.509 71.9977 219.009 64.4975 218.011C57.063 217.021 52.4985 222.014 52.5 228.014C52.5015 234.014 57.5027 238.512 65.0024 237.51C71.0316 236.705 72.0008 231.009 72.5 228.009Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M144.987 132.847L101.987 132.858L55.4822 114.649L21.4822 114.657M21.4822 114.657C20.9816 112.157 20.9799 105.657 13.4797 104.659C6.04522 103.67 1.48069 108.662 1.48221 114.662C1.48373 120.662 6.48486 125.161 13.9846 124.159C20.0138 123.354 20.983 117.657 21.4822 114.657Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M145 184.847L97.5 184.847L78.5 207.5L23 207.495M23 207.495C22.4994 204.995 22.4977 198.495 14.9975 197.497C7.56301 196.508 2.99849 201.5 3 207.5C3.00152 213.5 8.00265 217.999 15.5024 216.997C21.5316 216.191 22.5008 210.495 23 207.495Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M144.995 163.486L67.5 163.495M67.5 163.495C66.9994 160.995 66.9977 154.495 59.4975 153.497C52.063 152.508 47.4985 157.5 47.5 163.5C47.5015 169.5 52.5027 173.999 60.0024 172.997C66.0316 172.191 67.0008 166.495 67.5 163.495Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M266.62 228L266.318 281.999L290.24 296.133L290.111 319.133M290.111 319.133C287.609 319.619 281.109 319.582 280.067 327.077C279.034 334.505 284 339.099 290 339.132C296 339.166 300.527 334.191 299.569 326.685C298.799 320.652 293.109 319.649 290.111 319.133Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M158.955 228.165L158.81 254.164L139.366 269.056L139.237 292.056M139.237 292.056C136.735 292.542 130.235 292.505 129.193 300C128.16 307.428 133.126 312.022 139.126 312.055C145.126 312.089 149.653 307.114 148.695 299.608C147.925 293.575 142.235 292.572 139.237 292.056Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M248.366 227.056L248.237 250.056M248.237 250.056C245.735 250.542 239.235 250.506 238.193 258C237.16 265.429 242.126 270.022 248.126 270.056C254.126 270.089 258.653 265.114 257.695 257.609C256.925 251.575 251.235 250.573 248.237 250.056Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M220.469 227.057L220.237 268.556M220.237 268.556C217.735 269.042 211.235 269.006 210.193 276.5C209.16 283.928 214.126 288.522 220.126 288.556C226.126 288.589 230.653 283.614 229.695 276.109C228.925 270.075 223.235 269.073 220.237 268.556Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M173.237 327.5L173.366 292.663L192.81 277.771L192.955 251.771L182.696 241.107L182.696 227.107M173.237 327.5C170.735 327.986 164.235 327.95 163.193 335.444C162.16 342.873 167.126 347.466 173.126 347.5C179.126 347.533 183.653 342.558 182.695 335.053C181.925 329.019 176.235 328.017 173.237 327.5Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M338.372 301.5L338.5 278.5L338.5 245.5L314 218L277 218M338.372 301.5C335.869 301.986 329.369 301.949 328.327 309.444C327.295 316.872 332.26 321.466 338.26 321.499C344.26 321.533 348.788 316.558 347.83 309.053C347.059 303.019 341.369 302.016 338.372 301.5Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M158 111L158 86.8591L122 66.157L92.0023 66.157M92.0023 66.157C91.5017 63.6573 91.5001 57.1573 83.9998 56.1592C76.5653 55.1699 72.0008 60.1621 72.0023 66.1621C72.0038 72.1621 77.005 76.6607 84.5047 75.6588C90.5339 74.8534 91.5031 69.1573 92.0023 66.157Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+      </motion.svg>
+      <motion.svg
+        width="170"
+        height="178"
+        viewBox="0 0 170 178"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="digitalart"
+      >
+        <motion.path
+          d="M97.4997 121C92.4997 121 74.4997 122.5 49.9998 117C14.3326 108.993 -34.5002 90.5 40.4998 44.5C57.9998 32.493 113 19 131 22.9998M127.5 114.5C155 108 170.214 91.9998 168.5 79.9998C165.812 61.1908 147.615 67.4998 147 59.4998C146.385 51.4998 163.5 44 163.5 36C163.5 28 149.167 25.6667 145.5 24.5"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M25 81.5C22.5317 76.5635 24.0003 71.5 29.5004 69.5001C30.8757 69 36.6005 68 39.0005 72C42.0005 77 40.6648 81.7287 36.5005 84C33.5003 85.6365 27.0915 85.6829 25 81.5Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M53.1577 61.4882C50.6894 56.5517 52.158 51.4881 57.6581 49.4882C59.0334 48.9881 64.7582 47.9882 67.1582 51.9882C70.1582 56.9882 68.8225 61.7168 64.6582 63.9882C61.658 65.6246 55.2492 65.671 53.1577 61.4882Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M85.1577 48.4882C82.6894 43.5517 84.158 38.4881 89.6581 36.4882C91.0334 35.9881 96.7582 34.9882 99.1582 38.9882C102.158 43.9882 100.822 48.7168 96.6582 50.9882C93.658 52.6246 87.2492 52.671 85.1577 48.4882Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M145.39 3.40057C137.421 11.1869 119.713 35.2659 112.636 69.2918C110.402 84.3291 110.296 106.708 127.744 75.9255C145.192 45.1428 146.778 14.7494 145.39 3.40057Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M113.786 65.4282C113.831 67.8141 114.927 73.0281 118.956 74.7971C122.984 76.566 127.87 73.9787 129.81 72.4638"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M111.273 82.3453C96.0644 87.1349 89.5877 91.9361 90.9716 106.196C92.3555 120.455 103.287 124.163 99.2668 133.319C95.2464 142.475 117.334 131.969 124.883 117.263C132.433 102.557 127.81 90.6985 121.948 85.3942"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M46 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="5"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.1 }}
+        />
+        <motion.path
+          d="M54 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="1"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.1 }}
+        />
+        <motion.path
+          d="M57 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M73 143V178"
+          stroke="#B7B7B7"
+          stroke-width="5"
+          strokeWidth="1"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.8 }}
+        />
+        <motion.path
+          d="M81 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="1"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M84 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M64 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="7"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.7 }}
+        />
+        <motion.path
+          d="M109 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="4"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M92 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="1"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.3 }}
+        />
+        <motion.path
+          d="M69 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="1"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.4 }}
+        />
+        <motion.path
+          d="M95.5 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="1"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.2 }}
+        />
+        <motion.path
+          d="M103 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="0.5"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M114 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="0.5"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.4 }}
+        />
+        <motion.path
+          d="M121 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="12"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.8 }}
+        />
+        <motion.path
+          d="M78 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="1"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.6 }}
+        />
+        <motion.path
+          d="M88 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="5"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M97 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="0.25"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M99 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.4 }}
+        />
+        <motion.path
+          d="M101 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="1"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.6 }}
+        />
+        <motion.path
+          d="M128 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="1"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.2 }}
+        />
+        <motion.path
+          d="M135.5 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="0.5"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M131 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="0.5"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.7 }}
+        />
+        <motion.path
+          d="M137 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.1 }}
+        />
+        <motion.path
+          d="M134 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="1"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M130 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="0.5"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M132 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="0.5"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M49 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="0.5"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M51 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="0.25"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M79 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="0.25"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.1 }}
+        />
+        <motion.path
+          d="M80 143V178"
+          stroke="#B7B7B7"
+          strokeWidth="0.25"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.9 }}
+        />
+      </motion.svg>
+      <motion.svg
+        width="170"
+        height="126"
+        viewBox="0 0 170 126"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="programmer"
+      >
+        <motion.path
+          d="M1.5 91.5V1.5H169V91.5H1.5Z"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M70 79.5L97.5 14.5"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M120.967 24.7855L148.467 44.7855L120.967 69.2855"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path
+          d="M48.4937 69.0712L21.4224 48.4945L49.434 24.5811"
+          stroke="#B7B7B7"
+          strokeWidth="2"
+          variants={icon}
+          initial="hidden"
+          animate={{ pathLength: scrollProgress }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.path d="M87 91.5V121.5" stroke="#B7B7B7" stroke-width="10" />
+        <motion.path d="M11.5 121H157.5" stroke="#B7B7B7" stroke-width="10" />
+      </motion.svg>
