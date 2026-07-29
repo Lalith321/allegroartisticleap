@@ -6,19 +6,10 @@ interface SvgButtonProps {
   svg: React.ReactNode;
 }
 
-const SvgButton: FunctionComponent<SvgButtonProps> = ({ onClick, svg }) => {
-  const handleButtonClick = () => {
-    // Handle the button click event
-    if (onClick) {
-      onClick();
-    }
-  };
-
-  return ( 
-    <div className="property-onpress" onClick={handleButtonClick}>
-      {svg}
-    </div>
-  );
-};
+const SvgButton: FunctionComponent<SvgButtonProps> = ({ onClick, svg }) => (
+  <div className="property-onpress" onClick={onClick}>
+    {svg}
+  </div>
+);
 
 export default SvgButton;

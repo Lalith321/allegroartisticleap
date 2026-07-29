@@ -1,0 +1,35 @@
+{
+  "technical": [
+    { "name": "Python", "level": "Advanced", "proficiency": 92 },
+    { "name": "TensorFlow", "level": "Advanced", "proficiency": 88 },
+    { "name": "Deep Learning", "level": "Advanced", "proficiency": 90 },
+    { "name": "Machine Learning", "level": "Advanced", "proficiency": 88 },
+    { "name": "Generative AI", "level": "Advanced", "proficiency": 85 },
+    { "name": "GAN", "level": "Intermediate", "proficiency": 76 },
+    { "name": "Data Science", "level": "Advanced", "proficiency": 83 },
+    { "name": "Data Analytics", "level": "Advanced", "proficiency": 80 },
+    { "name": "GCP", "level": "Intermediate", "proficiency": 72 },
+    { "name": "Docker", "level": "Intermediate", "proficiency": 75 },
+    { "name": "React", "level": "Intermediate", "proficiency": 79 },
+    { "name": "C#", "level": "Intermediate", "proficiency": 70 },
+    { "name": "Java", "level": "Intermediate", "proficiency": 68 },
+    { "name": "Power BI", "level": "Intermediate", "proficiency": 74 },
+    { "name": "ROS", "level": "Intermediate", "proficiency": 65 },
+    { "name": "Android Studio", "level": "Intermediate", "proficiency": 64 },
+    { "name": "Fusion 360", "level": "Intermediate", "proficiency": 67 }
+  ],
+  "creative": [
+    { "name": "Blender 3D", "level": "Advanced", "proficiency": 90 },
+    { "name": "Unreal Engine", "level": "Intermediate", "proficiency": 78 },
+    { "name": "Sculpting", "level": "Advanced", "proficiency": 86 },
+    { "name": "Quixel Mixer", "level": "Intermediate", "proficiency": 70 },
+    { "name": "Concept Art", "level": "Advanced", "proficiency": 88 },
+    { "name": "Animations", "level": "Intermediate", "proficiency": 75 },
+    { "name": "Cascadeur", "level": "Intermediate", "proficiency": 72 },
+    { "name": "Digital Portraits", "level": "Advanced", "proficiency": 87 },
+    { "name": "Photoshop", "level": "Advanced", "proficiency": 86 },
+    { "name": "Krita", "level": "Intermediate", "proficiency": 74 },
+    { "name": "Figma", "level": "Intermediate", "proficiency": 76 },
+    { "name": "Logo Design", "level": "Intermediate", "proficiency": 79 }
+  ]
+}

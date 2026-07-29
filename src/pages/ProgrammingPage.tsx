@@ -1,6 +1,7 @@
-import { FunctionComponent, useCallback } from "react";
+import { FunctionComponent } from "react";
 import "./ProgrammingPage.css";
 import { motion } from "framer-motion";
+import { pageTransition } from "../motionVariants";
 import { useNavigate } from "react-router-dom";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,33 +25,24 @@ const works = [
   // Add more work items as needed
 ];
 
+const routeHandler = (routeGithub: string) => (
+  <a
+    href={routeGithub}
+    style={{
+      position: "absolute",
+      bottom: "10px",
+      right: "10px",
+      color: "white",
+      opacity: "0.9",
+      padding: "10px",
+    }}
+  >
+    <FontAwesomeIcon icon={faGithub} size="2x" />
+  </a>
+);
+
 const ProgrammingPage: FunctionComponent = () => {
   const navigate = useNavigate();
-  const onButtonClick = useCallback(
-    (pageId: any) => {
-      navigate(pageId);
-    },
-    [navigate]
-  );
-
-  const routeHandler = (routeGithub: string) => {
-    const linkButton = (
-      <a
-        href={routeGithub}
-        style={{
-          position: "absolute",
-          bottom: "10px",
-          right: "10px",
-          color: "white",
-          opacity: "0.9",
-          padding: "10px",
-        }}
-      >
-        <FontAwesomeIcon icon={faGithub} size="2x" />
-      </a>
-    );
-    return linkButton;
-  };
 
   return (
     <div className="dummy-bg">
@@ -58,15 +50,15 @@ const ProgrammingPage: FunctionComponent = () => {
         initial={{ rotateZ: 90, opacity: 0, transformOrigin: "100% 100%" }}
         animate={{ rotateZ: 0, opacity: 1 }}
         exit={{ rotateZ: -90, opacity: 0, transformOrigin: "100% 100%" }}
-        transition={{ duration: 2 }}
+        transition={pageTransition}
       >
         <div className="fullpage-pg">
           <div className="scrollpage-pg">
             <div className="xblock-pg">
-              {works.map((work, index) => (
-                <div className="card-pg">
+              {works.map((work) => (
+                <div className="card-pg" key={work.title}>
                   <div className="work-item-pg">
-                    <img src={work.imageUrl} />
+                    <img src={work.imageUrl} alt={work.title} />
                     <h3>{work.title}</h3>
                     <div className="description-container-pg">
                       <p>{work.description}</p>
@@ -77,7 +69,7 @@ const ProgrammingPage: FunctionComponent = () => {
               ))}
             </div>
           </div>
-          <button id="works-button" onClick={() => onButtonClick("/ai")}>
+          <button id="works-button" onClick={() => navigate("/ai")}>
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
               <path
                 id="circlePath"
@@ -93,7 +85,7 @@ const ProgrammingPage: FunctionComponent = () => {
           </button>
         </div>
       </motion.div>
-      <button id="home-button" onClick={() => onButtonClick("/")}>
+      <button id="home-button" onClick={() => navigate("/")}>
         <FontAwesomeIcon icon={faHome} className="home-button-icon" />
       </button>
     </div>

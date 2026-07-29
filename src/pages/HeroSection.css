@@ -1,0 +1,50 @@
+/* ── Root ensures the hero is the positioning context ── */
+.hero-proximity-root {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  contain: paint;
+  /* Keep your existing min-height / height rules */
+}
+
+/* ── Canvas sits above bg, below text ── */
+.proximity-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none; /* mouse passes through to window listener */
+  overflow: hidden;
+}
+
+/* ── Each animated sequence image ── */
+.proximity-asset {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  border: none;
+  outline: none;
+  /* Smooth out sub-pixel positioning */
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* ── Loading text ── */
+.proximity-loading {
+  position: absolute;
+  bottom: 18px;
+  right: 20px;
+  z-index: 5;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  font-family: inherit;
+}
+
+/* ── Ensure text content stays above canvas ── */
+.hero-split,
+.hero-scroll-hint,
+.NavPanel /* adjust to your NavPanel wrapper class if different */ {
+  position: relative;
+  z-index: 2;
+}

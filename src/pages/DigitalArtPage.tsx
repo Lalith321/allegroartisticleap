@@ -1,6 +1,7 @@
-import { FunctionComponent, useCallback, useRef, useState } from "react";
+import { FunctionComponent, useRef, useState } from "react";
 import "./DigitalArtPage.css";
 import { motion } from "framer-motion";
+import { pageTransition } from "../motionVariants";
 import { useNavigate } from "react-router-dom";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -71,16 +72,8 @@ const works = [
 
 const DigitalArtPage: FunctionComponent = () => {
   const scrollElementRef = useRef<HTMLDivElement>(null);
-  const cardContainerElementRef = useRef<HTMLDivElement>(null);
   const [focusedIndex, setFocusedIndex] = useState<number>(0);
   const navigate = useNavigate();
-
-  const onButtonClick = useCallback(
-    (pageId: any) => {
-      navigate(pageId);
-    },
-    [navigate]
-  );
 
   const scrollPage_daWidth =
     document.querySelector(".scrollpage-da")?.clientWidth;
@@ -92,7 +85,6 @@ const DigitalArtPage: FunctionComponent = () => {
       const newIndex = Math.floor(scrollLeft / 320);
       setFocusedIndex(newIndex);
     }
-    // throw new Error("Function not implemented.");
   }
 
   return (
@@ -101,12 +93,13 @@ const DigitalArtPage: FunctionComponent = () => {
         initial={{ rotateZ: 90, opacity: 0, transformOrigin: "100% 100%" }}
         animate={{ rotateZ: 0, opacity: 1 }}
         exit={{ rotateZ: -90, opacity: 0, transformOrigin: "100% 100%" }}
-        transition={{ duration: 2 }}
+        transition={pageTransition}
       >
         <div className="fullpage-da">
           <img
             className="master-display-da"
             src={works[focusedIndex]?.imageMockUp || ""}
+            alt=""
           />
           <div
             className="scrollpage-da"
@@ -114,10 +107,10 @@ const DigitalArtPage: FunctionComponent = () => {
             ref={scrollElementRef}
           >
             <div className="xblock-da" style={{ paddingRight: paddingRight }}>
-              {works.map((work, index) => (
-                <div className="card-da">
+              {works.map((work) => (
+                <div className="card-da" key={work.imageUrl}>
                   <div className="work-item-da">
-                    <img src={work.imageUrl} />
+                    <img src={work.imageUrl} alt={work.title} />
                     <h3>{work.title}</h3>
                   </div>
                 </div>
@@ -125,7 +118,7 @@ const DigitalArtPage: FunctionComponent = () => {
             </div>
           </div>
 
-          <button id="works-button" onClick={() => onButtonClick("/programs")}>
+          <button id="works-button" onClick={() => navigate("/programs")}>
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
               <path
                 id="circlePath"
@@ -141,7 +134,7 @@ const DigitalArtPage: FunctionComponent = () => {
           </button>
         </div>
       </motion.div>
-      <button id="home-button" onClick={() => onButtonClick("/")}>
+      <button id="home-button" onClick={() => navigate("/")}>
         <FontAwesomeIcon icon={faHome} className="home-button-icon" />
       </button>
     </div>

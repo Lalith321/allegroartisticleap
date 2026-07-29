@@ -1,6 +1,7 @@
-import { FunctionComponent, useCallback, useRef, useState } from "react";
+import { FunctionComponent, useRef, useState } from "react";
 import "./Env3DPage.css";
 import { motion } from "framer-motion";
+import { pageTransition } from "../motionVariants";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
@@ -40,20 +41,11 @@ const works = [
 
 const Env3DPage: FunctionComponent = () => {
   const scrollElementRef = useRef<HTMLDivElement>(null);
-  const cardContainerElementRef = useRef<HTMLDivElement>(null);
   const [focusedIndex, setFocusedIndex] = useState<number>(0);
   const navigate = useNavigate();
 
-  const onButtonClick = useCallback(
-    (pageId: any) => {
-      navigate(pageId);
-    },
-    [navigate]
-  );
-
   const scrollPage_envWidth =
     document.querySelector(".scrollpage-env")?.clientWidth;
-  // 320 px is the width of appearing individual card + left right padding i.e. card-env.
   const paddingRight = scrollPage_envWidth! - 320;
 
   function handleScroll(): void {
@@ -61,10 +53,7 @@ const Env3DPage: FunctionComponent = () => {
       const scrollLeft = scrollElementRef.current.scrollLeft;
       const newIndex = Math.floor(scrollLeft / 320);
       setFocusedIndex(newIndex);
-      // console.log(newIndex);
-      // console.log(scrollLeft);
     }
-    // throw new Error("Function not implemented.");
   }
 
   return (
@@ -73,7 +62,7 @@ const Env3DPage: FunctionComponent = () => {
         initial={{ rotateZ: 90, opacity: 0, transformOrigin: "100% 100%" }}
         animate={{ rotateZ: 0, opacity: 1 }}
         exit={{ rotateZ: -90, opacity: 0, transformOrigin: "100% 100%" }}
-        transition={{ duration: 2 }}
+        transition={pageTransition}
       >
         <div className="fullpage-env">
           <div className="cinematic-bg">
@@ -85,11 +74,10 @@ const Env3DPage: FunctionComponent = () => {
             ref={scrollElementRef}
           >
             <div className="xblock-env" style={{ paddingRight: paddingRight }}>
-              {works.map((work, index) => (
-                <div className="card-env">
+              {works.map((work) => (
+                <div className="card-env" key={work.imageUrl}>
                   <div className="work-item-env">
-                    <img src={work.imageUrl} />
-                    {/* <h3>{work.title}</h3> */}
+                    <img src={work.imageUrl} alt="" />
                   </div>
                 </div>
               ))}
@@ -97,7 +85,7 @@ const Env3DPage: FunctionComponent = () => {
           </div>
           <button
             id="works-button"
-            onClick={() => onButtonClick("/digitalart")}
+            onClick={() => navigate("/digitalart")}
           >
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -114,7 +102,7 @@ const Env3DPage: FunctionComponent = () => {
           </button>
         </div>
       </motion.div>
-      <button id="home-button" onClick={() => onButtonClick("/")}>
+      <button id="home-button" onClick={() => navigate("/")}>
         <FontAwesomeIcon icon={faHome} className="home-button-icon" />
       </button>
     </div>

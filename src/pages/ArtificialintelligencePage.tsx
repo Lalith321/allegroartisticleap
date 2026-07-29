@@ -1,6 +1,7 @@
-import { FunctionComponent, useCallback } from "react";
+import { FunctionComponent } from "react";
 import "./ArtificialIntelligencePage.css";
 import { motion } from "framer-motion";
+import { pageTransition } from "../motionVariants";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDatabase, faHome } from "@fortawesome/free-solid-svg-icons";
@@ -66,57 +67,31 @@ const works = [
   // Add more work items as needed
 ];
 
+const routeHandler = (
+  routeCollab?: string,
+  routeKaggle?: string,
+  routeLooker?: string
+) => (
+  <nav
+    style={{
+      position: "absolute",
+      bottom: "10px",
+      right: "10px",
+      color: "white",
+      opacity: "0.9",
+      padding: "10px",
+    }}>
+    <Link to={routeKaggle ?? routeCollab ?? routeLooker ?? "/allegroartisticleap"}>
+      <FontAwesomeIcon
+        icon={routeKaggle ? faKaggle : routeCollab ? faGoogle : faDatabase}
+        size="2x"
+      />
+    </Link>
+  </nav>
+);
+
 const ArtificialIntelligencePage: FunctionComponent = () => {
   const navigate = useNavigate();
-  const onButtonClick = useCallback(
-    (pageId: any) => {
-      navigate(pageId);
-    },
-    [navigate]
-  );
-
-  const routeHandler = (
-    routeCollab?: string,
-    routeKaggle?: string,
-    routeLooker?: string
-  ) => {
-    const defaultRoute = "/allegroartisticleap";
-    const linkButton = (
-      <nav
-      style={{
-        position: "absolute",
-        bottom: "10px",
-        right: "10px",
-        color: "white",
-        opacity: "0.9",
-        padding: "10px",
-      }}>
-        <Link to={routeKaggle ?? routeCollab ?? routeLooker ?? defaultRoute}>
-        <FontAwesomeIcon
-          icon={routeKaggle ? faKaggle : routeCollab ? faGoogle : faDatabase}
-          size="2x"
-        />
-        </Link>
-      </nav>
-      // <a
-      //   href={routeKaggle ?? routeCollab ?? routeLooker}
-      //   style={{
-      //     position: "absolute",
-      //     bottom: "10px",
-      //     right: "10px",
-      //     color: "white",
-      //     opacity: "0.9",
-      //     padding: "10px",
-      //   }}
-      // >
-      //   <FontAwesomeIcon
-      //     icon={routeKaggle ? faKaggle : routeCollab ? faGoogle : faDatabase}
-      //     size="2x"
-      //   />
-      // </a>
-    );
-    return linkButton;
-  };
 
   return (
     <div className="dummy-bg">
@@ -124,19 +99,22 @@ const ArtificialIntelligencePage: FunctionComponent = () => {
         initial={{ rotateZ: 90, opacity: 0, transformOrigin: "100% 100%" }}
         animate={{ rotateZ: 0, opacity: 1 }}
         exit={{ rotateZ: -90, opacity: 0, transformOrigin: "100% 100%" }}
-        transition={{ duration: 2 }}
+        transition={pageTransition}
       >
         <div className="fullpage-ai">
+          <div className="page-header-ai">
+            <div className="page-eyebrow">AI &amp; Machine Learning</div>
+            <h1 className="page-title">Projects</h1>
+          </div>
           <div className="scrollpage-ai">
             <div className="xblock-ai">
-              {works.map((work, index) => (
+              {works.map((work) => (
                 <div className="card-ai">
                   <div className="work-item-ai">
-                    <img src={work.imageUrl} />
+                    <img src={work.imageUrl} alt={work.title} />
                     <h3>{work.title}</h3>
                     <div className="description-container-ai">
                       <p>{work.description}</p>
-                      {/* <div>routeHandler(work.kaggle)</div> */}
                       {routeHandler(work.collab, work.kaggle, work.looker)}
                     </div>
                   </div>
@@ -144,7 +122,7 @@ const ArtificialIntelligencePage: FunctionComponent = () => {
               ))}
             </div>
           </div>
-          <button id="works-button" onClick={() => onButtonClick("/env3D")}>
+          <button id="works-button" onClick={() => navigate("/env3D")}>
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
               <path
                 id="circlePath"
@@ -160,7 +138,7 @@ const ArtificialIntelligencePage: FunctionComponent = () => {
           </button>
         </div>
       </motion.div>
-      <button id="home-button" onClick={() => onButtonClick("/")}>
+      <button id="home-button" onClick={() => navigate("/")}>
         <FontAwesomeIcon icon={faHome} className="home-button-icon" />
       </button>
     </div>

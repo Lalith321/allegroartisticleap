@@ -6,7 +6,7 @@
   justify-content: center;
   bottom: 0px;
   cursor: pointer;
-  stroke: #980021;
+  stroke: var(--color-gold);
   filter: blur(5px);
   opacity: 0;
 }

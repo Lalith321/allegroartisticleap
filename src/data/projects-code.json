@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Movie Ticket Registration",
+    "description": "C++ console application for booking cinema tickets — seat selection, screen types, and availability tracking.",
+    "image": "/allegroartisticleap/Projects/ticketregistration.png",
+    "link": "https://github.com/Lalith321/MovieTicketRegistrationC-.git",
+    "linkLabel": "View on GitHub"
+  },
+  {
+    "title": "Prim's MST Algorithm",
+    "description": "Implementation of Prim's minimum spanning tree algorithm in C++, finding the shortest path across all nodes.",
+    "image": "/allegroartisticleap/Projects/primsalgo.png",
+    "link": "https://github.com/Lalith321/Algorithms.git",
+    "linkLabel": "View on GitHub"
+  }
+]

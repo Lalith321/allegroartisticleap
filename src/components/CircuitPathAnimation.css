@@ -1,0 +1,268 @@
+/* ── Scroll container ─────────────────────────────────────── */
+.cpa-section {
+  position: relative;
+  width: 100%;
+  height: 380vh;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 30%, rgba(201,150,58,0.07) 0%, transparent 70%),
+    #0d0b0e;
+}
+
+/* ── Sticky stage ─────────────────────────────────────────── */
+.cpa-stage {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+/* ── Top bar ──────────────────────────────────────────────── */
+.cpa-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px 0;
+  flex-shrink: 0;
+}
+
+.cpa-top-bar__tag {
+  font-family: var(--font-primary);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.cpa-top-bar__hint {
+  font-family: var(--font-primary);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.30);
+  animation: cpa-blink 2s ease-in-out infinite;
+}
+
+@keyframes cpa-blink {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 0.8; }
+}
+
+/* ── SVG canvas — fills the middle row ───────────────────── */
+.cpa-canvas {
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.cpa-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* ── Node styles ──────────────────────────────────────────── */
+.cpa-node-hub {
+  fill: var(--color-gold);
+  stroke: rgba(245,240,232,0.9);
+  stroke-width: 2;
+}
+
+.cpa-node-leaf {
+  fill: rgba(245,240,232,0.9);
+  stroke: rgba(201,150,58,0.5);
+  stroke-width: 1.5;
+}
+
+.cpa-node-diamond {
+  fill: none;
+  stroke: rgba(201,150,58,0.45);
+  stroke-width: 1;
+}
+
+/* ── SVG text ─────────────────────────────────────────────── */
+.cpa-lbl-hub {
+  fill: var(--color-cream);
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+}
+
+.cpa-lbl-sub {
+  fill: rgba(245,240,232,0.50);
+  font-family: var(--font-primary);
+  font-size: 9px;
+  letter-spacing: 0.10em;
+}
+
+.cpa-lbl-leaf {
+  fill: rgba(245,240,232,0.85);
+  font-family: var(--font-primary);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.cpa-lbl-leaf-sub {
+  fill: rgba(245,240,232,0.55);
+  font-family: var(--font-primary);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.cpa-tip-text {
+  fill: rgba(245,240,232,0.80);
+  font-family: var(--font-primary);
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+}
+
+/* ── Bottom row: info + nav ───────────────────────────────── */
+.cpa-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px 28px;
+  gap: 24px;
+  flex-shrink: 0;
+  border-top: 1px solid rgba(245,240,232,0.06);
+  padding-top: 18px;
+}
+
+/* Info panel */
+.cpa-info {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  min-width: 0;
+}
+
+.cpa-info__tag {
+  font-family: var(--font-primary);
+  font-size: 10px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cpa-info__name {
+  font-family: var(--font-display);
+  font-size: clamp(15px, 1.6vw, 20px);
+  font-weight: 700;
+  color: var(--color-cream);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cpa-info__desc {
+  font-family: var(--font-primary);
+  font-size: 12px;
+  color: rgba(245,240,232,0.50);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Nav buttons */
+.cpa-nav {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.cpa-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border: 1px solid rgba(245,240,232,0.10);
+  background: rgba(255,255,255,0.03);
+  color: rgba(245,240,232,0.35);
+  font-family: var(--font-primary);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: not-allowed;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+
+.cpa-nav-btn--on {
+  border-color: rgba(201,150,58,0.50);
+  background: rgba(201,150,58,0.08);
+  color: var(--color-cream);
+  cursor: pointer;
+  box-shadow: 0 0 14px rgba(201,150,58,0.10);
+}
+
+.cpa-nav-btn--on:hover {
+  background: rgba(201,150,58,0.16);
+  box-shadow: 0 0 22px rgba(201,150,58,0.20);
+}
+
+.cpa-nav-btn__led {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(245,240,232,0.18);
+  flex-shrink: 0;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.cpa-nav-btn--on .cpa-nav-btn__led {
+  background: var(--color-gold);
+  box-shadow: 0 0 6px rgba(201,150,58,0.8);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .cpa-top-bar,
+  .cpa-bottom {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .cpa-info__desc {
+    display: none;
+  }
+
+  .cpa-nav-btn {
+    font-size: 9px;
+    padding: 7px 11px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cpa-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding-bottom: 20px;
+  }
+
+  .cpa-nav {
+    flex-wrap: wrap;
+  }
+
+  .cpa-info {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .cpa-info__name {
+    font-size: 14px;
+  }
+}

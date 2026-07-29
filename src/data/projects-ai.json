@@ -1,0 +1,44 @@
+[
+  {
+    "title": "Traffic Sign Classification",
+    "description": "Custom CNN with TensorFlow classifying traffic signs using convolutions and Adam optimiser.",
+    "image": "/allegroartisticleap/Projects/traffics.png",
+    "link": "https://www.kaggle.com/code/lalith321/traffic-sign-classification",
+    "linkLabel": "View on Kaggle"
+  },
+  {
+    "title": "AI Generated Animations",
+    "description": "GAN model generating 3D animations in Blender. Animation data encoded prior to training to reduce dimensionality.",
+    "image": "/allegroartisticleap/Projects/discriminator.png",
+    "link": "https://colab.research.google.com/drive/1I3zgbRZmuHwRTK5agstVZkCKG7MgyWbS?usp=sharing",
+    "linkLabel": "View on Colab"
+  },
+  {
+    "title": "ResNet Traffic Demo",
+    "description": "Fast.ai ResNet-34 fine-tuned on traffic signal data, achieving 99% accuracy. Model exported to pickle.",
+    "image": "/allegroartisticleap/Projects/trafficresnet.png",
+    "link": "https://www.kaggle.com/code/lalith321/training-fastai-resnet-34-for-traffic-signal-data",
+    "linkLabel": "View on Kaggle"
+  },
+  {
+    "title": "PCA Feature Compression",
+    "description": "PCA for dimensionality reduction on Iris dataset, followed by Decision Tree classification.",
+    "image": "/allegroartisticleap/Projects/pca_implementation.png",
+    "link": "https://colab.research.google.com/drive/1GOpkcvqw2SfuAgO75FZvSICz1he_2J5G?usp=sharing",
+    "linkLabel": "View on Colab"
+  },
+  {
+    "title": "Model Comparison — Network Attacks",
+    "description": "Multiple supervised ML models predicting 10 types of network attacks on the UNSW_NB15 dataset.",
+    "image": "/allegroartisticleap/Projects/model_comp.png",
+    "link": "https://colab.research.google.com/drive/1IVZ8lqfCdDuugQLLJDWzPwp4wZTJSoQT?usp=sharing",
+    "linkLabel": "View on Colab"
+  },
+  {
+    "title": "Financial Data Analysis",
+    "description": "Analysis of gross profit and revenue across 4,400 US companies using Looker Studio dashboards.",
+    "image": "/allegroartisticleap/Projects/FinancialRptUSTriennial.png",
+    "link": "https://lookerstudio.google.com/reporting/984ba4ae-713b-4dbe-a2dc-6b46bbf376d9",
+    "linkLabel": "View on Looker Studio"
+  }
+]

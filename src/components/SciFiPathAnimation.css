@@ -1,0 +1,198 @@
+.scifi-path-section {
+  position: relative;
+  width: 100%;
+  height: 300vh;
+  background: radial-gradient(circle at 20% 12%, rgba(201, 150, 58, 0.12), transparent 20%),
+              radial-gradient(circle at 82% 18%, rgba(245, 240, 232, 0.06), transparent 18%),
+              radial-gradient(circle at 40% 80%, rgba(201, 150, 58, 0.04), transparent 18%),
+              var(--color-near-black);
+}
+
+.scifi-path-stage {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 0;
+}
+
+.scifi-path-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.08), transparent 22%),
+              radial-gradient(circle at 80% 25%, rgba(201, 150, 58, 0.05), transparent 16%);
+  pointer-events: none;
+}
+
+.scifi-path-title {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 8px;
+}
+
+.scifi-path-intro {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-primary);
+  font-size: 12px;
+  line-height: 1.6;
+  max-width: 640px;
+  text-align: center;
+  color: rgba(245, 240, 232, 0.65);
+  margin-bottom: 18px;
+}
+
+.scifi-path-frame {
+  position: relative;
+  z-index: 1;
+  width: min(900px, 92vw);
+  max-height: 84vh;
+  aspect-ratio: 0.9;
+  background: rgba(22, 20, 23, 0.88);
+  border: 1px solid rgba(245, 240, 232, 0.08);
+  border-radius: 32px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  backdrop-filter: blur(18px);
+}
+
+.scifi-path-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.scifi-path-node-core {
+  fill: var(--color-gold);
+  stroke: rgba(245, 240, 232, 0.8);
+  stroke-width: 1.4;
+  filter: url(#scifi-glow);
+}
+
+.scifi-path-node-ring {
+  fill: none;
+  stroke: rgba(201, 150, 58, 0.25);
+  stroke-width: 1.6;
+}
+
+.scifi-path-node-label {
+  fill: rgba(245, 240, 232, 0.9);
+  font-family: var(--font-primary);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.scifi-path-launch-dot {
+  fill: rgba(245, 240, 232, 0.95);
+  filter: url(#scifi-glow);
+}
+
+.scifi-path-status {
+  position: relative;
+  z-index: 1;
+  margin-top: 16px;
+  font-family: var(--font-primary);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.5);
+}
+
+.scifi-path-summary {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin-top: 18px;
+  text-align: center;
+}
+
+.scifi-path-summary__title {
+  font-family: var(--font-primary);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 8px;
+}
+
+.scifi-path-summary__copy {
+  font-family: var(--font-primary);
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(245, 240, 232, 0.72);
+}
+
+.scifi-path-node-buttons {
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.scifi-path-node-button {
+  border: 1px solid rgba(245, 240, 232, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(245, 240, 232, 0.65);
+  font-family: var(--font-primary);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  border-radius: 999px;
+  cursor: default;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.scifi-path-node-button--active {
+  border-color: var(--color-gold);
+  background: rgba(201, 150, 58, 0.12);
+  color: var(--color-cream);
+  cursor: pointer;
+}
+
+.scifi-path-node-button:disabled {
+  opacity: 0.5;
+}
+
+@media (max-width: 960px) {
+  .scifi-path-frame {
+    width: min(720px, 92vw);
+  }
+}
+
+@media (max-width: 640px) {
+  .scifi-path-stage {
+    padding: 24px 0;
+  }
+
+  .scifi-path-frame {
+    width: min(92vw, 520px);
+    aspect-ratio: 0.82;
+    border-radius: 24px;
+  }
+
+  .scifi-path-title {
+    font-size: 12px;
+    letter-spacing: 0.24em;
+  }
+
+  .scifi-path-node-label {
+    font-size: 10px;
+  }
+}

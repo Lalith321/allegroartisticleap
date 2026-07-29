@@ -1,7 +1,5 @@
 import { FunctionComponent, ReactNode } from "react";
-import "./GlassmorphContainer.css"; // Import your CSS file for styling
-import React from "react";
-import { Position } from "estree";
+import "./GlassmorphContainer.css";
 
 interface GlassMorphProps {
   position: "static" | "fixed" | "absolute" | "relative";

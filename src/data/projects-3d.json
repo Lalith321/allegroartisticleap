@@ -1,0 +1,44 @@
+[
+  {
+    "title": "Sea Pavillion",
+    "description": "A cinematic 3D environment featuring an ocean-side pavilion rendered in Blender.",
+    "image": "/allegroartisticleap/Arts/SeaPavillion.png",
+    "link": "https://www.artstation.com/lalith321",
+    "linkLabel": "View on ArtStation"
+  },
+  {
+    "title": "History Part 1",
+    "description": "Stylised historical environment built and lit in Blender with custom materials.",
+    "image": "/allegroartisticleap/Arts/HistoryPart1.png",
+    "link": "https://www.artstation.com/lalith321",
+    "linkLabel": "View on ArtStation"
+  },
+  {
+    "title": "Mandala Cave",
+    "description": "Intricate cave environment with mandala-inspired geometry and volumetric lighting.",
+    "image": "/allegroartisticleap/Arts/MandalaCave.png",
+    "link": "https://www.artstation.com/lalith321",
+    "linkLabel": "View on ArtStation"
+  },
+  {
+    "title": "Red Crystal Particles",
+    "description": "Abstract particle simulation with dynamic crystal formations in Blender.",
+    "image": "/allegroartisticleap/Arts/RedCrystalParticles.png",
+    "link": "https://www.artstation.com/lalith321",
+    "linkLabel": "View on ArtStation"
+  },
+  {
+    "title": "Gold Emitter Abstract",
+    "description": "Abstract generative art piece using Blender geometry nodes and emission shaders.",
+    "image": "/allegroartisticleap/Arts/GoldEmitterAbstract.png",
+    "link": "https://www.artstation.com/lalith321",
+    "linkLabel": "View on ArtStation"
+  },
+  {
+    "title": "Wearables",
+    "description": "3D wearable concept art and product visualisation rendered in Blender.",
+    "image": "/allegroartisticleap/Arts/Wearables.png",
+    "link": "https://www.artstation.com/lalith321",
+    "linkLabel": "View on ArtStation"
+  }
+]

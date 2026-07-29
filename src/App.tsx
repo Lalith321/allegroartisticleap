@@ -1,11 +1,4 @@
-import {
-  HashRouter as
-  Router,
-  Route,
-  Routes,
-  useNavigationType,
-  useLocation,
-} from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import WebPage from "./pages/LandingPage";
 import ArtificialIntelligencePage from "./pages/ArtificialintelligencePage";
 import ProgrammingPage from "./pages/ProgrammingPage";
@@ -15,65 +8,25 @@ import ProjectHotel1 from "./pages/ProjectHotel1";
 import { useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 
+const pageMeta: Record<string, { title: string; description: string }> = {
+  "/": { title: "Lalith Kumar — AI · 3D · Design · Code", description: "Portfolio of Lalith Kumar — computer scientist and digital artist specialising in AI, 3D environments, digital art, and software development." },
+  "/ai": { title: "AI & Machine Learning — Lalith Kumar", description: "AI and machine learning projects by Lalith Kumar." },
+  "/env3d": { title: "3D Environments — Lalith Kumar", description: "3D environment art and Blender projects by Lalith Kumar." },
+  "/programs": { title: "Programming — Lalith Kumar", description: "Programming and software projects by Lalith Kumar." },
+  "/digitalart": { title: "Digital Art — Lalith Kumar", description: "Digital art portfolio by Lalith Kumar." },
+  "/ai/ProjectHotel1": { title: "Organization RAG — Lalith Kumar", description: "RAG AI demo project by Lalith Kumar." },
+};
+
 function App() {
-  const action = useNavigationType();
   const location = useLocation();
   const pathname = location.pathname;
 
   useEffect(() => {
-    if (action !== "POP") {
-      window.scrollTo(0, 0);
-    }
-  }, [action, pathname]);
-
-  useEffect(() => {
-    let title = "";
-    let metaDescription = "";
-
-    switch (pathname) {
-      case "/":
-        title = "AAL";
-        metaDescription = "";
-        break;
-
-      case "/ai":
-        title = "AAL";
-        metaDescription = "";
-        break;
-
-      case "/env3d":
-        title = "AAL";
-        metaDescription = "";
-        break;
-
-      case "/programs":
-        title = "AAL";
-        metaDescription = "";
-        break;
-
-      case "/digitalart":
-        title = "AAL";
-        metaDescription = "";
-        break;
-
-      case "/ai/ProjectHotel1":
-        title = "AAL";
-        metaDescription = "";
-        break;
-    }
-
-    if (title) {
-      document.title = title;
-    }
-
-    if (metaDescription) {
-      const metaDescriptionTag: HTMLMetaElement | null = document.querySelector(
-        'head > meta[name="description"]'
-      );
-      if (metaDescriptionTag) {
-        metaDescriptionTag.content = metaDescription;
-      }
-    }
+    const meta = pageMeta[pathname];
+    if (!meta) return;
+    document.title = meta.title;
+    const tag = document.querySelector<HTMLMetaElement>('head > meta[name="description"]');
+    if (tag) tag.content = meta.description;
   }, [pathname]);
 
   return (

@@ -1,7 +1,5 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, { FunctionComponent, useRef } from "react";
 import YouTube, {
-  YouTubeEvent,
-  YouTubePlayer,
   YouTubeProps,
 } from "react-youtube";
 
@@ -22,11 +20,7 @@ const YouTubeHandler: FunctionComponent<YouTubeHandlerprops> = ({
 
   const onPlayerStateChange: YouTubeProps["onStateChange"] = (event) => {
     const playerInst = event.target;
-    const maxLoopingTime = 10;
-    const endTime = Math.min(maxLoopingTime, playerInst.getDuration() - 1);
-    if (event.data === YouTube.PlayerState.PLAYING) {
-      // console.log("running");
-    } else if (event.data === YouTube.PlayerState.ENDED) {
+    if (event.data === YouTube.PlayerState.ENDED) {
       playerInst.seekTo(0);
       playerInst.playVideo();
     }

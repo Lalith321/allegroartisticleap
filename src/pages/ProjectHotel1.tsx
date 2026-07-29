@@ -9,7 +9,9 @@ const ProjectHotel1: React.FunctionComponent = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            var api_url = 'https://backendholder.onrender.com/api/Organization-rag/'
+            // var api_url = 'https://backendholder.onrender.com/api/Organization-rag/'
+            var api_url = 'https://allegroartisticleap.com/api/Organization-rag/'
+
             // Dev server
             const response = await axios.post(api_url, { input_string: input });
             // Prod server
