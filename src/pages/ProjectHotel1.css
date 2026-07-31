@@ -13,13 +13,15 @@
     left: 10%;
     right: 10%;
     bottom: 25%;
-    background-color: rgba(22, 22, 22, 0.2); /* Semi-transparent background for readability */
+    background-color: rgba(255, 255, 255, 0.88);
     padding: 20px;
     border-radius: 10px;
     z-index: 2; /* Higher z-index to place the form in front of the image */
     text-align: center;
     backdrop-filter: blur(10px);
     overflow: auto;
+    border: 1px solid rgba(17, 18, 20, 0.12);
+    box-shadow: 0 24px 60px rgba(17, 18, 20, 0.12);
 }
 
 .form-container {
@@ -29,15 +31,8 @@
   }
 
 .form-container h1{
-  color: #000;
+  color: #111214;
 }
-
-.vertical-line {
-    position: absolute;
-    border-left: 2px solid rgb(255, 255, 255);
-    left: 50%;
-    height: 300px;
-  }
 
 .project-description {
     position: absolute;
@@ -46,7 +41,7 @@
     font-size: 16px;
     line-height: 1.6;
     margin: 20px;
-    color: #f0f0f0;
+    color: #111214;
     overflow-wrap: break-word; /* Ensure long words break correctly */
     word-wrap: break-word; /* Ensure long words break correctly */
     hyphens: auto;
@@ -57,7 +52,7 @@
     margin-bottom: 20px;
     width: 80%;
     margin: 20px;
-    color: #000;
+    color: #111214;
 }
 
 .project-description-container a{

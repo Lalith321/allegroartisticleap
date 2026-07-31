@@ -3,7 +3,7 @@
 .fullpage-pg {
   position: relative;
   min-height: 100vh;
-  background-color: var(--color-near-black);
+  background-color: var(--color-background);
   display: flex;
   flex-direction: column;
 }
@@ -69,9 +69,9 @@
   left: 0;
   margin: 0;
   padding: 6px 14px;
-  background: rgba(17, 18, 20, 0.75);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px);
-  color: var(--color-cream);
+  color: #111214;
   font-family: var(--font-primary);
   font-size: 13px;
   font-weight: 600;
@@ -90,9 +90,9 @@
   right: 0;
   height: 310px;
   border-radius: var(--br-lg);
-  background: rgba(17, 18, 20, 0.88);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(201,150,58,0.25);
+  border-top: 1px solid rgba(17, 18, 20, 0.08);
   transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 16px;
   box-sizing: border-box;
@@ -104,7 +104,7 @@
 
 .description-container-pg p {
   margin: 0;
-  color: rgba(245,240,232,0.75);
+  color: #111214;
   font-family: var(--font-primary);
   font-size: 13px;
   font-weight: 400;

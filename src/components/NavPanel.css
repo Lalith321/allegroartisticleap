@@ -11,10 +11,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
-  background: rgba(17, 18, 20, 0.80);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(17, 18, 20, 0.08);
   font-family: var(--font-primary);
 }
 
@@ -63,7 +63,7 @@
   font-family: var(--font-primary);
   font-size: 14px;
   font-weight: 500;
-  color: rgba(245, 240, 232, 0.65);
+  color: rgba(17, 18, 20, 0.75);
   letter-spacing: 0.03em;
   transition: color var(--transition-base), background var(--transition-base);
   text-transform: uppercase;
@@ -71,8 +71,8 @@
 }
 
 .nav-link-btn:hover {
-  color: var(--color-cream);
-  background: rgba(245, 240, 232, 0.06);
+  color: var(--color-black);
+  background: rgba(17, 18, 20, 0.06);
 }
 
 .nav-link-btn.active {
