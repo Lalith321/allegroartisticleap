@@ -2,15 +2,34 @@
    HERO SECTION — Light cream theme (matches live site)
    ═══════════════════════════════════════════════════════════════ */
 
-/* ── Outer wrapper ── */
+/* ── Outer wrapper — NO z-index, so navbar stays free ── */
 .hero-showcase {
   position: relative;
   width: 100%;
   min-height: 100vh;
   overflow: hidden;
-  background: var(--lp-bg); /* solid cream, no parallax bleed */
-  z-index: 10;
 }
+
+/* Solid cream blocker that sits above the glass panel */
+.hero-showcase::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--lp-bg);
+  z-index: 6;          /* above glass (5) */
+}
+
+/* ── Stage — sits above the blocker ── */
+.hero-showcase__stage {
+  position: relative;
+  z-index: 7;          /* above the cream blocker */
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 
 /* ── Navigation ── */
 .hero-nav {
@@ -18,20 +37,21 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 9999;        /* ← was 1000, now bulletproof */
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem clamp(1.5rem, 5vw, 4rem);
-  transition: background 0.3s ease, padding 0.3s ease;
+  background: var(--lp-bg);
+  border-bottom: 1px solid transparent;
+  transition: padding 0.3s ease, border-color 0.3s ease;
 }
 
 .hero-nav--scrolled {
-  background: rgba(236, 236, 232, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   padding-top: 1rem;
   padding-bottom: 1rem;
+  border-bottom-color: var(--lp-border); /* hairline rule on scroll */
+  /* no backdrop-filter, no transparency */
 }
 
 .hero-nav__brand {
@@ -66,16 +86,6 @@
   color: #1a1a18;
 }
 
-/* ── Stage ── */
-.hero-showcase__stage {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
 /* ── Content ── */
 .hero-showcase__content {
   position: relative;
@@ -88,20 +98,23 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  max-width: 520px;
-  align-items: flex-start;   /* ← text stays left, never centers */
-  text-align: left;          /* ← force left alignment */
+  align-items: flex-start;
+  text-align: left;
+  max-width: none;         /* ← remove width cap */
+  width: 100%;
 }
 
 /* ── Hero image (swan) ── */
 .hero-showcase__image {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
+  right: 0%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: auto;
+  height: 100vh;        
+  max-width: 52vw;     /* cap width so it doesn't spill too far left */
+  object-fit: contain;
+  object-position: right center;
   z-index: 1;
 }
 
@@ -154,17 +167,19 @@
 /* ── Title — dark italic serif ── */
 .hero-showcase__headline {
   margin-bottom: 0.25rem;
+  width: max-content;      /* ← let it stretch as wide as the text */
+  max-width: none;
 }
-
 .hero-showcase__title {
   font-family: var(--lp-font-display);
-  font-size: clamp(3.2rem, 7vw, 6rem);
+  font-size: clamp(16em, 12vw, 9rem);
   font-weight: 400;
   font-style: italic;
-  line-height: 1.0;
-  letter-spacing: -0.03em;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
   color: #1a1a18;
   margin: 0;
+  white-space: nowrap;     /* ← forces single line left-to-right */
 }
 
 /* ── Summary ── */
