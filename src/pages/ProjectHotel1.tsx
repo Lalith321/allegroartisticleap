@@ -40,6 +40,7 @@ const ProjectHotel1: React.FunctionComponent = () => {
                         <p>{output}</p>
                     </div>
                 </div>
+                <div className="vertical-line"></div>
                 <div className="project-description">My project uses a RAG AI model with MongoDB, React front end, and Python Django back end. This setup boosts AI performance with accurate, context-aware responses and ensures dynamic interaction and robust data management.</div>
                 <a href="https://medium.com/@adhimulamlalith22/implementing-retrieval-augmented-generation-rag-with-large-language-models-using-jupyter-hugging-d50ed11f3819">Read blog....</a>
             </div>

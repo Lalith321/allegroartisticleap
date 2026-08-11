@@ -1,0 +1,9 @@
+/* tsparticles injects a canvas — ensure it NEVER blocks clicks */
+#about-hexagon-particles,
+#about-hexagon-particles canvas {
+  pointer-events: none !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}

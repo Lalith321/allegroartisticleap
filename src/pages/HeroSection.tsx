@@ -8,7 +8,7 @@ const X_SHIFT_DESIGN = 470;
 const BLOOM_SPEED     = 0.04;
 const CLOSE_SPEED     = 0.03;
 const DESIGN_SIZE     = 1024;
-const HERO_IMAGE      = "/allegroartisticleap/HeroShot.png";
+const HERO_IMAGE      = "/allegroartisticleap/Hero Shot.png";
 
 const FLOWERS = [
   { id: "left-rose",    folder: "LeftCornerFlower", frames: 86, hitX: 760, hitY: 600, hitRadius: 200 },

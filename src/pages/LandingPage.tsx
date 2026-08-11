@@ -1,12 +1,38 @@
-import { FunctionComponent, useState, useRef, useEffect, Dispatch, SetStateAction } from "react";
+import {
+  FunctionComponent,
+  useState,
+  useRef,
+  useEffect,
+  forwardRef,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import "./LandingPage.css";
-import { motion, AnimatePresence, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useInView,
+  useMotionValue,
+  useTransform,
+  animate,
+  useScroll,
+} from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faArtstation, faGithub, faGoogle, faInstagram, faLinkedin,
+  faArtstation,
+  faGithub,
+  faGoogle,
+  faInstagram,
+  faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
-import { faPhone, faEnvelope, faArrowUpRightFromSquare, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPhone,
+  faEnvelope,
+  faArrowUpRightFromSquare,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import HeroSection from "./HeroSection";
+import ParallaxBackground from "../components/ParallaxBackground";
 import skillsData from "../data/skills.json";
 import projects3d from "../data/projects-3d.json";
 import projectsAI from "../data/projects-ai.json";
@@ -30,6 +56,42 @@ const TABS = [
   { id: "code", label: "Programming",             eyebrow: "Python · C++ · React · Java",   data: projectsCode },
 ] as const;
 
+/* ── Fade Section Wrapper (forwards ref) ───────────────────── */
+const FadeSection = forwardRef<HTMLElement, {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}>(({ children, className = "", delay = 0 }, forwardedRef) => {
+  const innerRef = useRef<HTMLElement>(null);
+  const isInView = useInView(innerRef, {
+    once: false,
+    amount: "some",
+    margin: "-5% 0px -5% 0px",
+  });
+
+  useEffect(() => {
+    if (!forwardedRef) return;
+    if (typeof forwardedRef === "function") {
+      forwardedRef(innerRef.current);
+    } else {
+      (forwardedRef as React.MutableRefObject<HTMLElement | null>).current = innerRef.current;
+    }
+  }, [forwardedRef]);
+
+  return (
+    <motion.section
+      ref={innerRef}
+      className={className}
+      initial={{ opacity: 0, y: 36 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
+      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.section>
+  );
+});
+FadeSection.displayName = "FadeSection";
+
 /* ── Skill Bar ─────────────────────────────────────────────── */
 const SkillBar: FunctionComponent<{ item: SkillItem; alt?: boolean }> = ({ item, alt }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -48,22 +110,28 @@ const SkillBar: FunctionComponent<{ item: SkillItem; alt?: boolean }> = ({ item,
         <span className="skill-level">{item.level}</span>
       </div>
       <div className="skill-meter">
-        <motion.div className={`skill-meter-fill${alt ? " skill-meter-fill--alt" : ""}`} style={{ width: widthPct }} />
+        <motion.div
+          className={`skill-meter-fill${alt ? " skill-meter-fill--alt" : ""}`}
+          style={{ width: widthPct }}
+        />
       </div>
     </div>
   );
 };
 
 /* ── Social Panel ──────────────────────────────────────────── */
-const SocialPanel: FunctionComponent<{ open: boolean; setOpen: Dispatch<SetStateAction<boolean>> }> = ({ open, setOpen }) => {
+const SocialPanel: FunctionComponent<{
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}> = ({ open, setOpen }) => {
   const socials = [
-    { href: "https://github.com/Lalith321",                          icon: faGithub,    label: "GitHub"    },
-    { href: "https://www.instagram.com/allegroartisticleap/",        icon: faInstagram, label: "Instagram" },
-    { href: "https://www.linkedin.com/in/a-lalith-kumar-66606517a/", icon: faLinkedin,  label: "LinkedIn"  },
-    { href: "https://www.artstation.com/lalith321",                  icon: faArtstation,label: "ArtStation"},
-    { href: "https://g.dev/lalith321",                               icon: faGoogle,    label: "Google Dev"},
-    { href: "tel:+919840403254",                                     icon: faPhone,     label: "Phone"     },
-    { href: "mailto:adhimulamlalith22@gmail.com",                    icon: faEnvelope,  label: "Email"     },
+    { href: "https://github.com/Lalith321",                          icon: faGithub,     label: "GitHub"     },
+    { href: "https://www.instagram.com/allegroartisticleap/",        icon: faInstagram,  label: "Instagram"  },
+    { href: "https://www.linkedin.com/in/a-lalith-kumar-66606517a/", icon: faLinkedin,   label: "LinkedIn"   },
+    { href: "https://www.artstation.com/lalith321",                  icon: faArtstation, label: "ArtStation" },
+    { href: "https://g.dev/lalith321",                               icon: faGoogle,     label: "Google Dev" },
+    { href: "tel:+919840403254",                                     icon: faPhone,      label: "Phone"      },
+    { href: "mailto:adhimulamlalith22@gmail.com",                    icon: faEnvelope,   label: "Email"      },
   ];
 
   return (
@@ -108,235 +176,275 @@ const WebPage: FunctionComponent = () => {
   const [activeTab, setActiveTab] = useState<typeof TABS[number]["id"]>("3d");
   const [contactOpen, setContactOpen] = useState(false);
 
-  const aboutRef  = useRef<HTMLElement>(null);
-  const skillsRef = useRef<HTMLElement>(null);
-  const aboutInView  = useInView(aboutRef,  { once: true, margin: "-100px" });
-  const skillsInView = useInView(skillsRef, { once: true, margin: "-100px" });
+  const aboutRef      = useRef<HTMLElement>(null);
+  const skillsRef     = useRef<HTMLElement>(null);
+  const aboutLeftRef  = useRef<HTMLDivElement>(null);
+  const aboutRightRef = useRef<HTMLDivElement>(null);
+
+  const skillsInView     = useInView(skillsRef,     { once: false, amount: "some", margin: "-5% 0px -5% 0px" });
+  const aboutLeftInView  = useInView(aboutLeftRef,  { once: false, amount: "some", margin: "-5% 0px -5% 0px" });
+  const aboutRightInView = useInView(aboutRightRef, { once: false, amount: "some", margin: "-5% 0px -5% 0px" });
 
   const activeProjects = TABS.find((t) => t.id === activeTab)!.data as ProjectCard[];
 
+  const { scrollYProgress } = useScroll();
+
   return (
     <div className="landingpage-parent">
+      <ParallaxBackground scrollProgress={scrollYProgress} />
+      <div className="glass-panel" aria-hidden="true" />
+
       <SocialPanel open={contactOpen} setOpen={setContactOpen} />
       <HeroSection />
 
-      {/* Two-column body: left content | right sticky pillar */}
-      <div className="page-body">
-        <main className="page-main">
-          {/* About */}
-          <section className="aboutwhole" data-scroll-to="aboutContainer" ref={aboutRef}>
-            <div className="about-gradient-shield" aria-hidden="true" />
-
-            <motion.div
-              className="about-left-panel"
-              initial={{ opacity: 0, x: -48 }}
-              animate={aboutInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+      <main className="page-main">
+        {/* ── About ── */}
+        <FadeSection className="aboutwhole" ref={aboutRef}>
+          <motion.div
+            ref={aboutLeftRef}
+            className="about-left-panel"
+            initial={{ opacity: 0, x: -40 }}
+            animate={aboutLeftInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="about-eyebrow">About me</span>
+            <h2 className="about-heading">
+              Where code meets<br />creative vision.
+            </h2>
+            <p className="aboutcontent">
+              A versatile professional with a solid foundation in computer science —
+              encompassing data science, machine learning, and Google Cloud certifications.
+              Specialising in convolutional neural networks, generative AI, and deep learning.
+              On the creative side, proficient in digital art, 3D modelling, and animations.
+              The fusion of technical expertise and creative flair defines every project.
+            </p>
+            <a
+              href="/allegroartisticleap/LalithResume.pdf"
+              className="about-resume-link"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <span className="about-eyebrow">About me</span>
-              <h2 className="about-heading">
-                Where code meets<br />creative vision.
-              </h2>
-              <p className="aboutcontent">
-                A versatile professional with a solid foundation in computer science —
-                encompassing data science, machine learning, and Google Cloud certifications.
-                Specialising in convolutional neural networks, generative AI, and deep learning.
-                On the creative side, proficient in digital art, 3D modelling, and animations.
-                The fusion of technical expertise and creative flair defines every project.
-              </p>
-              <a href="/allegroartisticleap/LalithResume.pdf" className="about-resume-link" target="_blank" rel="noopener noreferrer">
-                Download Résumé →
-              </a>
-            </motion.div>
+              Download Résumé →
+            </a>
+          </motion.div>
 
+          <motion.div
+            ref={aboutRightRef}
+            className="about-right-panel"
+            initial={{ opacity: 0, x: 40 }}
+            animate={aboutRightInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+          >
+            <img
+              className="profilepic"
+              alt="Lalith Kumar"
+              src="/allegroartisticleap/ProfilePic.png"
+            />
+          </motion.div>
+        </FadeSection>
+
+        {/* ── Projects ── */}
+        <FadeSection className="work-section" delay={0.05}>
+          <div className="work-header">
+            <span className="work-eyebrow">Selected Work</span>
+            <h2 className="work-heading">Projects across disciplines</h2>
+          </div>
+
+          <div className="work-tabs">
+            {TABS.map((tab) => (
+              <button
+                key={tab.id}
+                className={`work-tab${activeTab === tab.id ? " work-tab--active" : ""}`}
+                onClick={() => setActiveTab(tab.id)}
+              >
+                {tab.label}
+                {activeTab === tab.id && (
+                  <motion.div className="work-tab__underline" layoutId="tab-underline" />
+                )}
+              </button>
+            ))}
+          </div>
+
+          <AnimatePresence mode="wait">
             <motion.div
-              className="about-right-panel"
-              initial={{ opacity: 0, x: 48 }}
-              animate={aboutInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+              key={activeTab}
+              className="work-section__grid"
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.38, ease: "easeInOut" }}
             >
-              <img className="profilepic" alt="Lalith Kumar" src="/allegroartisticleap/ProfilePic.png" />
-            </motion.div>
-          </section>
-
-          {/* Projects */}
-          <section className="work-section" data-scroll-to="section3d">
-            <div className="work-header">
-              <span className="work-eyebrow">Selected Work</span>
-              <h2 className="work-heading">Projects across disciplines</h2>
-            </div>
-
-            <div className="work-tabs">
-              {TABS.map((tab) => (
-                <button
-                  key={tab.id}
-                  className={`work-tab${activeTab === tab.id ? " work-tab--active" : ""}`}
-                  onClick={() => setActiveTab(tab.id)}
+              {activeProjects.slice(0, 6).map((p, i) => (
+                <motion.button
+                  key={p.title}
+                  type="button"
+                  className="work-card"
+                  onClick={() => setSelectedProject(p)}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.45, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{
+                    y: -6,
+                    scale: 1.02,
+                    transition: { type: "spring", stiffness: 340, damping: 22 },
+                  }}
+                  whileTap={{ scale: 0.97 }}
+                  aria-haspopup="dialog"
+                  aria-label={`Open project details for ${p.title}`}
+                  title={p.title}
                 >
-                  {tab.label}
-                  {activeTab === tab.id && (
-                    <motion.div className="work-tab__underline" layoutId="tab-underline" />
-                  )}
-                </button>
+                  <div className="work-card__img-wrap">
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      className="work-card__img"
+                      loading="lazy"
+                    />
+                    <div className="work-card__overlay">
+                      <span className="work-card__overlay-text">View details</span>
+                    </div>
+                  </div>
+                </motion.button>
               ))}
-            </div>
-
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                className="work-section__grid"
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.38, ease: "easeInOut" }}
-              >
-                {activeProjects.map((p, i) => (
-                  <motion.button
-                    key={p.title}
-                    type="button"
-                    className="work-card"
-                    onClick={() => setSelectedProject(p)}
-                    initial={{ opacity: 0, y: 24 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.45, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                    whileHover={{ y: -6, scale: 1.02, transition: { type: "spring", stiffness: 340, damping: 22 } }}
-                    whileTap={{ scale: 0.97 }}
-                    aria-haspopup="dialog"
-                    aria-label={`Open project details for ${p.title}`}
-                  >
-                    <div className="work-card__img-wrap">
-                      <img src={p.image} alt={p.title} className="work-card__img" loading="lazy" />
-                      <div className="work-card__overlay">
-                        <span className="work-card__overlay-text">View details</span>
-                      </div>
-                    </div>
-                    <div className="work-card__body">
-                      <h3 className="work-card__title">{p.title}</h3>
-                      <p className="work-card__desc">{p.description}</p>
-                      <span className="work-card__link">
-                        {p.linkLabel} <FontAwesomeIcon icon={faArrowUpRightFromSquare} size="xs" />
-                      </span>
-                    </div>
-                  </motion.button>
-                ))}
-              </motion.div>
-            </AnimatePresence>
-          </section>
-
-          {/* Project Modal */}
-          <AnimatePresence>
-            {selectedProject && (
-              <motion.div
-                className="project-modal-backdrop"
-                role="dialog"
-                aria-modal="true"
-                aria-label={`${selectedProject.title} project details`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
-                onClick={(e) => { if (e.target === e.currentTarget) setSelectedProject(null); }}
-              >
-                <motion.div
-                  className="project-modal-content"
-                  initial={{ opacity: 0, scale: 0.92, y: 32 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.94, y: 20 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 28 }}
-                >
-                  <button
-                    type="button"
-                    className="project-modal-close"
-                    onClick={() => setSelectedProject(null)}
-                    aria-label="Close project details"
-                  >
-                    <FontAwesomeIcon icon={faXmark} />
-                  </button>
-                  <div className="project-modal-grid">
-                    <div className="project-modal-image-wrap">
-                      <img src={selectedProject.image} alt={selectedProject.title} className="project-modal-image" />
-                    </div>
-                    <div className="project-modal-copy">
-                      <span className="project-modal-eyebrow">Project spotlight</span>
-                      <h3 className="project-modal-title">{selectedProject.title}</h3>
-                      <p className="project-modal-description">{selectedProject.description}</p>
-                      <a
-                        href={selectedProject.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-modal-cta"
-                      >
-                        {selectedProject.linkLabel} <FontAwesomeIcon icon={faArrowUpRightFromSquare} size="xs" />
-                      </a>
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
-            )}
+            </motion.div>
           </AnimatePresence>
+        </FadeSection>
 
-          {/* Skills */}
-          <section className="myskills" ref={skillsRef}>
-            <img src="/allegroartisticleap/BackDropSkills.png" alt="" className="myskillsbg" aria-hidden="true" />
-            <div className="skills-inner">
+        {/* ── Project Modal ── */}
+        <AnimatePresence>
+          {selectedProject && (
+            <motion.div
+              className="project-modal-backdrop"
+              role="dialog"
+              aria-modal="true"
+              aria-label={`${selectedProject.title} project details`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={(e) => {
+                if (e.target === e.currentTarget) setSelectedProject(null);
+              }}
+            >
               <motion.div
-                className="skills-header"
-                initial={{ opacity: 0, y: 24 }}
-                animate={skillsInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                className="project-modal-content"
+                initial={{ opacity: 0, scale: 0.92, y: 32 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.94, y: 20 }}
+                transition={{ type: "spring", stiffness: 300, damping: 28 }}
               >
-                <span className="skills-eyebrow">Capabilities</span>
-                <h2 className="skills-heading">What I bring to the table</h2>
+                <button
+                  type="button"
+                  className="project-modal-close"
+                  onClick={() => setSelectedProject(null)}
+                  aria-label="Close project details"
+                >
+                  <FontAwesomeIcon icon={faXmark} />
+                </button>
+                <div className="project-modal-grid">
+                  <div className="project-modal-image-wrap">
+                    <img
+                      src={selectedProject.image}
+                      alt={selectedProject.title}
+                      className="project-modal-image"
+                    />
+                  </div>
+                  <div className="project-modal-copy">
+                    <span className="project-modal-eyebrow">Project spotlight</span>
+                    <h3 className="project-modal-title">{selectedProject.title}</h3>
+                    <p className="project-modal-description">{selectedProject.description}</p>
+                    <a
+                      href={selectedProject.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-modal-cta"
+                    >
+                      {selectedProject.linkLabel}{" "}
+                      <FontAwesomeIcon icon={faArrowUpRightFromSquare} size="xs" />
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── Skills ── */}
+        <FadeSection className="myskills" ref={skillsRef} delay={0.05}>
+          <img
+            src="/allegroartisticleap/BackDropSkills.png"
+            alt=""
+            className="myskillsbg"
+            aria-hidden="true"
+          />
+          <div className="skills-inner">
+            <motion.div
+              className="skills-header"
+              initial={{ opacity: 0, y: 24 }}
+              animate={skillsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <span className="skills-eyebrow">Capabilities</span>
+              <h2 className="skills-heading">What I bring to the table</h2>
+            </motion.div>
+
+            <div className="skills-columns">
+              <motion.div
+                className="skills-col"
+                initial={{ opacity: 0, x: -32 }}
+                animate={skillsInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -32 }}
+                transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="skills-col-title">
+                  <span className="skills-col-icon">⚙</span>Technical
+                </div>
+                <div className="skills-column-body">
+                  {(skillsData.technical as SkillItem[]).map((s) => (
+                    <SkillBar key={s.name} item={s} />
+                  ))}
+                </div>
               </motion.div>
 
-              <div className="skills-columns">
-                <motion.div
-                  className="skills-col"
-                  initial={{ opacity: 0, x: -32 }}
-                  animate={skillsInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <div className="skills-col-title"><span className="skills-col-icon">⚙</span>Technical</div>
-                  <div className="skills-column-body">
-                    {(skillsData.technical as SkillItem[]).map((s) => (
-                      <SkillBar key={s.name} item={s} />
-                    ))}
-                  </div>
-                </motion.div>
+              <div className="skills-col-divider" />
 
-                <div className="skills-col-divider" />
+              <motion.div
+                className="skills-col"
+                initial={{ opacity: 0, x: 32 }}
+                animate={skillsInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 32 }}
+                transition={{ duration: 0.75, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="skills-col-title">
+                  <span className="skills-col-icon">✦</span>Creative
+                </div>
+                <div className="skills-column-body">
+                  {(skillsData.creative as SkillItem[]).map((s) => (
+                    <SkillBar key={s.name} item={s} alt />
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </FadeSection>
+      </main>
 
-                <motion.div
-                  className="skills-col"
-                  initial={{ opacity: 0, x: 32 }}
-                  animate={skillsInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.75, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <div className="skills-col-title"><span className="skills-col-icon">✦</span>Creative</div>
-                  <div className="skills-column-body">
-                    {(skillsData.creative as SkillItem[]).map((s) => (
-                      <SkillBar key={s.name} item={s} alt />
-                    ))}
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </section>
-
-          {/* Footer */}
-          <footer className="footer">
-            <div className="footer-brand">
-              <div className="footer-brand-name">Lalith Kumar</div>
-              <div className="footer-tagline">AI · 3D Environments · Digital Art · Programming</div>
-            </div>
-            <div className="donate-box">
-              <h3>Support my work</h3>
-              <img className="qrimage" src="/allegroartisticleap/PaymentQR.jpg" alt="Payment QR code" />
-            </div>
-            <div className="footer-copy">© {new Date().getFullYear()} Lalith Kumar. All rights reserved.</div>
-          </footer>
-        </main>
-      </div>
+      {/* ── Footer ── */}
+      <footer className="footer">
+        <div className="footer-brand">
+          <div className="footer-brand-name">Lalith Kumar</div>
+          <div className="footer-tagline">AI · 3D Environments · Digital Art · Programming</div>
+        </div>
+        <div className="donate-box">
+          <h3>Support my work</h3>
+          <img
+            className="qrimage"
+            src="/allegroartisticleap/PaymentQR.jpg"
+            alt="Payment QR code"
+          />
+        </div>
+        <div className="footer-copy">
+          © {new Date().getFullYear()} Lalith Kumar. All rights reserved.
+        </div>
+      </footer>
     </div>
   );
 };

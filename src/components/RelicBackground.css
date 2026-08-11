@@ -1,0 +1,28 @@
+.relic-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: #e6e6e2;
+  will-change: filter;
+}
+
+.relic-base {
+  position: absolute;
+  inset: 0;
+  background-image: url("/allegroartisticleap/pillar.png");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  transform: scale(1.05); /* subtle zoom for parallax feel */
+}
+
+.relic-cracks,
+.relic-moss,
+.relic-vignette {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+  pointer-events: none;
+}
