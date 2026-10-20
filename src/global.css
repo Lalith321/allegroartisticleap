@@ -12,6 +12,7 @@
 
 html {
   background-color: var(--color-near-black);
+  scroll-behavior: smooth;
   /* NO overflow-x:hidden here — it breaks position:sticky everywhere */
 }
 

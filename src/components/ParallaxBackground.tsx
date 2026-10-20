@@ -6,10 +6,16 @@ interface Props {
 }
 
 const pad = (n: number) => String(n).padStart(3, "0");
+const frameUrl = (idx: number) => `/allegroartisticleap/timelapse2/ezgif-frame-${pad(idx)}.png`;
 
 export default function ParallaxBackground({ scrollProgress }: Props) {
   const frameImgRef = useRef<HTMLImageElement>(null);
-  const cacheRef = useRef<Set<string>>(new Set());
+  const cacheRef = useRef<Map<number, HTMLImageElement>>(new Map());
+  const targetFrameRef = useRef<number>(1);
+  const currentFrameRef = useRef<number>(1);
+  const rafIdRef = useRef<number>(0);
+  const isUpdatingRef = useRef<boolean>(false);
+  const prevScrollIdxRef = useRef<number>(1);
 
   /* ── Scroll phases ── */
   const zoomPhase = useTransform(scrollProgress, [0, 0.92], [0, 1]);
@@ -27,28 +33,86 @@ export default function ParallaxBackground({ scrollProgress }: Props) {
   const rockExitOpacity = useTransform(exitPhase, [0, 0.55], [1, 0]);
   const darknessOpacity = useTransform(exitPhase, [0, 0.55], [0, 1]);
 
-  /* ── Timelapse frame driver ── */
-  useEffect(() => {
-    return frameIndex.on("change", (latest) => {
-      const idx = Math.max(1, Math.min(300, Math.round(latest)));
-      const src = `/allegroartisticleap/timelapse2/ezgif-frame-${pad(idx)}.png`;
+  /* ── Preload a frame into cache asynchronously ── */
+  const preloadFrame = (idx: number): HTMLImageElement => {
+    const cached = cacheRef.current.get(idx);
+    if (cached) return cached;
 
-      if (frameImgRef.current) {
-        frameImgRef.current.src = src;
+    const img = new Image();
+    img.decoding = "async";
+    img.src = frameUrl(idx);
+    cacheRef.current.set(idx, img);
+
+    // Keep cache size bounded (max 50 frames) to prevent memory bloating
+    if (cacheRef.current.size > 50) {
+      const oldestKey = cacheRef.current.keys().next().value;
+      if (oldestKey !== undefined) {
+        cacheRef.current.delete(oldestKey);
+      }
+    }
+
+    return img;
+  };
+
+  /* ── Render target frame smoothly ── */
+  const scheduleUpdate = () => {
+    if (isUpdatingRef.current) return;
+    isUpdatingRef.current = true;
+
+    rafIdRef.current = requestAnimationFrame(() => {
+      isUpdatingRef.current = false;
+      const target = targetFrameRef.current;
+      const current = currentFrameRef.current;
+
+      if (target === current || !frameImgRef.current) {
+        return;
       }
 
-      /* Preload next 3 frames */
-      for (let i = 1; i <= 3; i++) {
-        const next = idx + i;
-        if (next > 300) break;
-        const url = `/allegroartisticleap/timelapse2/ezgif-frame-${pad(next)}.png`;
-        if (!cacheRef.current.has(url)) {
-          const img = new Image();
-          img.src = url;
-          cacheRef.current.add(url);
+      const img = preloadFrame(target);
+      const applyFrame = () => {
+        // Only apply if target hasn't changed to a newer frame in the meantime
+        if (targetFrameRef.current === target && frameImgRef.current) {
+          frameImgRef.current.src = img.src;
+          currentFrameRef.current = target;
+        }
+      };
+
+      if (img.complete && img.naturalWidth) {
+        applyFrame();
+      } else if ("decode" in img) {
+        img.decode().then(applyFrame).catch(applyFrame);
+      } else {
+        img.onload = applyFrame;
+      }
+
+      // Preload next 2 frames in scroll direction
+      const direction = target >= prevScrollIdxRef.current ? 1 : -1;
+      prevScrollIdxRef.current = target;
+      for (let i = 1; i <= 2; i++) {
+        const nextIdx = target + i * direction;
+        if (nextIdx >= 1 && nextIdx <= 300) {
+          preloadFrame(nextIdx);
         }
       }
     });
+  };
+
+  /* ── Timelapse frame driver ── */
+  useEffect(() => {
+    // Initial frame preload
+    preloadFrame(1);
+    preloadFrame(2);
+
+    const unsubscribe = frameIndex.on("change", (latest) => {
+      const idx = Math.max(1, Math.min(300, Math.round(latest)));
+      targetFrameRef.current = idx;
+      scheduleUpdate();
+    });
+
+    return () => {
+      unsubscribe();
+      cancelAnimationFrame(rafIdRef.current);
+    };
   }, [frameIndex]);
 
   return (
@@ -59,6 +123,7 @@ export default function ParallaxBackground({ scrollProgress }: Props) {
           ref={frameImgRef}
           src="/allegroartisticleap/timelapse2/ezgif-frame-001.png"
           alt=""
+          decoding="async"
           draggable={false}
         />
       </motion.div>
@@ -76,7 +141,12 @@ export default function ParallaxBackground({ scrollProgress }: Props) {
           className="parallax-layer--rock__inner"
           style={{ y: rockExitY, opacity: rockExitOpacity }}
         >
-          <img src="/allegroartisticleap/rock.png" alt="" draggable={false} />
+          <img
+            src="/allegroartisticleap/rock.png"
+            alt=""
+            decoding="async"
+            draggable={false}
+          />
         </motion.div>
       </motion.div>
 

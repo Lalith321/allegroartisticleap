@@ -59,9 +59,24 @@ const RoleRotator: React.FC = () => {
 /* ── Top Navigation ──────────────────────────────────────────── */
 const HeroNav: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
+  const scrolledRef = useRef(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          const isScrolled = window.scrollY > 60;
+          if (isScrolled !== scrolledRef.current) {
+            scrolledRef.current = isScrolled;
+            setScrolled(isScrolled);
+          }
+          ticking = false;
+        });
+      }
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -99,6 +114,14 @@ export default function HeroSection() {
   const raf      = useRef(0);
   const cache    = useRef<Map<string, HTMLImageElement>>(new Map());
   const stateRef = useRef<
+  const readyRef    = useRef(false);
+  const isVisibleRef = useRef(true);
+  const isLoopingRef = useRef(false);
+  const mouse       = useRef<{ x: number; y: number } | null>(null);
+  const contain     = useRef({ left: 0, top: 0, width: 0, height: 0, scale: 1 });
+  const raf         = useRef(0);
+  const cache       = useRef<Map<string, HTMLImageElement>>(new Map());
+  const stateRef    = useRef<
     { cfg: (typeof FLOWERS)[number]; el: HTMLImageElement; progress: number; target: number; curFrame: number }[]
   >([]);
 
@@ -106,6 +129,7 @@ export default function HeroSection() {
     const key = `${folder}#${frame}`;
     if (cache.current.has(key)) return cache.current.get(key)!;
     const img = new Image();
+    img.decoding = "async";
     img.src = frameUrl(folder, frame);
     cache.current.set(key, img);
     return img;
@@ -141,6 +165,11 @@ export default function HeroSection() {
   }, []);
 
   const tick = useCallback(() => {
+    if (!isVisibleRef.current) {
+      isLoopingRef.current = false;
+      return;
+    }
+
     const m = mouse.current;
     if (glowRef.current && m) {
       glowRef.current.style.transform = `translate(${m.x}px, ${m.y}px)`;
@@ -156,6 +185,8 @@ export default function HeroSection() {
     const offsetX = left + (width - scaledW) / 2 + shiftPx;
     const offsetY = top + (height - scaledH) / 2 + OVERLAY_Y_SHIFT;
     const designToScreen = scale * OVERLAY_SCALE;
+
+    let anyActive = false;
 
     stateRef.current.forEach((s) => {
       if (m) {
@@ -174,6 +205,10 @@ export default function HeroSection() {
       s.progress += (s.target - s.progress) * rate;
       if (Math.abs(s.target - s.progress) < 0.001) s.progress = s.target;
 
+      if (s.progress > 0.001 || s.target > 0) {
+        anyActive = true;
+      }
+
       const frame = Math.round(s.progress * (s.cfg.frames - 1)) + 1;
       if (frame !== s.curFrame) {
         s.curFrame = frame;
@@ -188,12 +223,27 @@ export default function HeroSection() {
       }
     });
 
+    // If mouse left and all flowers are settled closed, stop the loop to save CPU/battery
+    if (!m && !anyActive) {
+      isLoopingRef.current = false;
+      return;
+    }
+
     raf.current = requestAnimationFrame(tick);
   }, [getImg]);
+
+  const startLoop = useCallback(() => {
+    if (!isLoopingRef.current && isVisibleRef.current && readyRef.current) {
+      isLoopingRef.current = true;
+      raf.current = requestAnimationFrame(tick);
+    }
+  }, [tick]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    const stage = stageRef.current;
+    if (!canvas || !stage) return;
 
     const onKey = (e: KeyboardEvent) => { if (e.key === "d" || e.key === "D") setDebug(v => !v); };
     window.addEventListener("keydown", onKey);
@@ -207,6 +257,7 @@ export default function HeroSection() {
       el.style.userSelect = "none";
       el.style.objectFit = "contain";
       el.style.willChange = "transform, opacity";
+      el.decoding = "async";
       el.draggable = false;
       canvas.appendChild(el);
       return { cfg, el, progress: 0, target: 0, curFrame: 1 };
@@ -221,6 +272,7 @@ export default function HeroSection() {
         readyRef.current = true;
         setReady(true);
         raf.current = requestAnimationFrame(tick);
+        startLoop();
       }
     };
 
@@ -239,17 +291,62 @@ export default function HeroSection() {
         readyRef.current = true;
         setReady(true);
         raf.current = requestAnimationFrame(tick);
+        startLoop();
       }
     }, 3000);
 
     const onMove = (e: MouseEvent) => { mouse.current = { x: e.clientX, y: e.clientY }; };
     const onLeave = () => { mouse.current = null; };
     const onResize = () => { computeContain(); layoutOverlays(); };
+    // Pause animation when hero section is not visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        isVisibleRef.current = entry.isIntersecting;
+        if (entry.isIntersecting) {
+          computeContain();
+          layoutOverlays();
+          startLoop();
+        } else {
+          isLoopingRef.current = false;
+          cancelAnimationFrame(raf.current);
+        }
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(stage);
+
+    const onMove = (e: MouseEvent) => {
+      mouse.current = { x: e.clientX, y: e.clientY };
+      startLoop();
+    };
+
+    const onLeave = () => {
+      mouse.current = null;
+    };
+
+    const onResize = () => {
+      computeContain();
+      layoutOverlays();
+    };
+
+    let scrollTicking = false;
     const onScroll = () => {
       const s = stageRef.current;
       if (!s) return;
       const r = s.getBoundingClientRect();
       stageRect.current = { left: r.left, top: r.top };
+      if (!scrollTicking && isVisibleRef.current) {
+        scrollTicking = true;
+        requestAnimationFrame(() => {
+          const s = stageRef.current;
+          if (s) {
+            const r = s.getBoundingClientRect();
+            stageRect.current = { left: r.left, top: r.top };
+          }
+          scrollTicking = false;
+        });
+      }
     };
 
     window.addEventListener("mousemove", onMove, { passive: true });
@@ -260,6 +357,7 @@ export default function HeroSection() {
     return () => {
       clearTimeout(timeout);
       cancelAnimationFrame(raf.current);
+      observer.disconnect();
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseleave", onLeave);
       window.removeEventListener("resize", onResize);
@@ -268,6 +366,7 @@ export default function HeroSection() {
       states.forEach((s) => s.el.remove());
     };
   }, [computeContain, layoutOverlays, tick, getImg]);
+  }, [computeContain, layoutOverlays, tick, startLoop, getImg]);
 
   const debugCircles = (() => {
     if (!debug) return null;

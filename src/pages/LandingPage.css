@@ -33,6 +33,9 @@
   inset: 0;
   z-index: 0;
   overflow: hidden;
+  contain: strict;
+  transform: translateZ(0);
+  pointer-events: none;
 }
 
 .parallax-layer {
@@ -41,12 +44,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, opacity;
 }
 
 .parallax-layer img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .parallax-layer--background {
@@ -56,6 +64,8 @@
 .parallax-layer--rock {
   z-index: 3;
   align-items: flex-end;
+  transform: translateZ(0);
+  will-change: transform, opacity;
 }
 
 .parallax-layer--rock__inner {
@@ -64,11 +74,14 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  transform: translateZ(0);
 }
 
 .parallax-layer--rock__inner img {
   object-fit: cover;
   object-position: bottom;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .parallax-darkness {
@@ -82,6 +95,7 @@
     rgba(5, 5, 8, 0.55) 100%
   );
   pointer-events: none;
+  transform: translateZ(0);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -92,52 +106,22 @@
   inset: 0;
   z-index: 5;
   pointer-events: none;
+  contain: strict;
+  transform: translateZ(0);
+  will-change: transform;
 
-  /* Soft oval dark tint — like a spotlight on the content zone */
+  /* Rich multi-stop dark radial vignette spotlight on content zone */
   background: radial-gradient(
-    ellipse 36% 52% at 30% 50%,
-    rgba(5, 5, 10, 0.58) 0%,
-    rgba(5, 5, 10, 0.58) 38%,
+    ellipse 46% 62% at 28% 50%,
+    rgba(6, 6, 10, 0.74) 0%,
+    rgba(6, 6, 10, 0.60) 36%,
+    rgba(6, 6, 10, 0.25) 68%,
     transparent 100%
   );
 
-  /* Stronger, silkier blur */
-  backdrop-filter: blur(38px) brightness(0.48) saturate(0.8);
-  -webkit-backdrop-filter: blur(38px) brightness(0.78) saturate(0.8);
-
-  /* Oval mask — blur fades in a circular radius, zero hard edges */
-  -webkit-mask-image: radial-gradient(
-    ellipse 36% 52% at 30% 50%,
-    black 0%,
-    black 38%,
-    transparent 100%
-  );
-  mask-image: radial-gradient(
-    ellipse 36% 52% at 30% 50%,
-    black 0%,
-    black 20%,
-    transparent 100%
-  );
-}
-
-/* Fallback for older browsers */
-@supports not (mask-image: radial-gradient(black, transparent)) {
-  .glass-panel {
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent 0%,
-      black 10%,
-      black 70%,
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      to right,
-      transparent 0%,
-      black 10%,
-      black 70%,
-      transparent 100%
-    );
-  }
+  /* Silky, GPU-safe blur without destructive mask-image */
+  backdrop-filter: blur(8px) brightness(0.92);
+  -webkit-backdrop-filter: blur(8px) brightness(0.92);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -176,6 +160,8 @@
   padding: 0.75rem 0.5rem;
   gap: 0.75rem;
   box-shadow: -4px 0 24px rgba(0, 0, 0, 0.06);
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .social-panel__tab {
@@ -393,6 +379,7 @@
   border-radius: var(--lp-radius);
   overflow: hidden;
   cursor: pointer;
+  transform: translateZ(0);
   transition: border-color 0.25s var(--lp-ease), box-shadow 0.25s var(--lp-ease);
 }
 
@@ -589,6 +576,8 @@
   opacity: 0.15;
   pointer-events: none;
   filter: saturate(0.5);
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .skills-inner {
