@@ -43,16 +43,22 @@
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem clamp(1.5rem, 5vw, 4rem);
-  background: var(--lp-bg);
+  background: rgba(236, 236, 232, 0.75);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
   border-bottom: 1px solid transparent;
-  transition: padding 0.3s ease, border-color 0.3s ease;
+  transform: translateZ(0);
+  transition: padding 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .hero-nav--scrolled {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+  background: rgba(236, 236, 232, 0.85); /* 85% frosted tint */
+  backdrop-filter: blur(24px) saturate(180%); /* heavy blur effect on scrolling content */
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border-bottom-color: var(--lp-border); /* hairline rule on scroll */
-  /* no backdrop-filter, no transparency */
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
 }
 
 .hero-nav__brand {
