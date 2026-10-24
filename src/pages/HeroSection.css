@@ -8,16 +8,7 @@
   width: 100%;
   min-height: 100vh;
   overflow: hidden;
-  contain: layout style;
-}
-
-/* Solid cream blocker that sits above the glass panel */
-.hero-showcase::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--lp-bg);
-  z-index: 6;          /* above glass (5) */
+  background: #ecece8;
 }
 
 /* ── Stage — sits above the blocker ── */

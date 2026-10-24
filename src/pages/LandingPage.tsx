@@ -64,7 +64,6 @@ const FadeSection = forwardRef<HTMLElement, {
 }>(({ children, className = "", delay = 0 }, forwardedRef) => {
   const innerRef = useRef<HTMLElement>(null);
   const isInView = useInView(innerRef, {
-    once: false,
     once: true,
     amount: "some",
     margin: "-5% 0px -5% 0px",
@@ -182,22 +181,16 @@ const WebPage: FunctionComponent = () => {
   const aboutLeftRef  = useRef<HTMLDivElement>(null);
   const aboutRightRef = useRef<HTMLDivElement>(null);
 
-  const skillsInView     = useInView(skillsRef,     { once: false, amount: "some", margin: "-5% 0px -5% 0px" });
-  const aboutLeftInView  = useInView(aboutLeftRef,  { once: false, amount: "some", margin: "-5% 0px -5% 0px" });
-  const aboutRightInView = useInView(aboutRightRef, { once: false, amount: "some", margin: "-5% 0px -5% 0px" });
   const skillsInView     = useInView(skillsRef,     { once: true, amount: "some", margin: "-5% 0px -5% 0px" });
   const aboutLeftInView  = useInView(aboutLeftRef,  { once: true, amount: "some", margin: "-5% 0px -5% 0px" });
   const aboutRightInView = useInView(aboutRightRef, { once: true, amount: "some", margin: "-5% 0px -5% 0px" });
 
   const activeProjects = TABS.find((t) => t.id === activeTab)!.data as ProjectCard[];
-
   const { scrollYProgress } = useScroll();
 
   return (
     <div className="landingpage-parent">
       <ParallaxBackground scrollProgress={scrollYProgress} />
-      <div className="glass-panel" aria-hidden="true" />
-
       <SocialPanel open={contactOpen} setOpen={setContactOpen} />
       <HeroSection />
 

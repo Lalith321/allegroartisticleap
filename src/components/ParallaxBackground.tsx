@@ -19,19 +19,9 @@ export default function ParallaxBackground({ scrollProgress }: Props) {
 
   /* ── Scroll phases ── */
   const zoomPhase = useTransform(scrollProgress, [0, 0.92], [0, 1]);
-  const exitPhase = useTransform(scrollProgress, [0.92, 1], [0, 1]);
 
   /* ── L0: Combined Background ── */
   const frameIndex = useTransform(zoomPhase, [0, 1], [1, 200]);
-
-  const rockScale = useTransform(zoomPhase, [0.65, 1.0], [2.0, 1.4]);
-  const rockY = useTransform(zoomPhase, [0.65, 1], ["100%", "0%"]);
-  const rockOpacity = useTransform(zoomPhase, [0.65, 1], [1, 1]);
-
-  /* Exit: gentle lift + fade, darkness rises smoothly underneath */
-  const rockExitY = useTransform(exitPhase, [0, 1], ["0%", "-20%"]);
-  const rockExitOpacity = useTransform(exitPhase, [0, 0.55], [1, 0]);
-  const darknessOpacity = useTransform(exitPhase, [0, 0.55], [0, 1]);
 
   /* ── Preload a frame into cache asynchronously ── */
   const preloadFrame = (idx: number): HTMLImageElement => {
@@ -128,33 +118,7 @@ export default function ParallaxBackground({ scrollProgress }: Props) {
         />
       </motion.div>
 
-      {/* L1: Rock */}
-      <motion.div
-        className="parallax-layer parallax-layer--rock"
-        style={{
-          scale: rockScale,
-          y: rockY,
-          opacity: rockOpacity,
-        }}
-      >
-        <motion.div
-          className="parallax-layer--rock__inner"
-          style={{ y: rockExitY, opacity: rockExitOpacity }}
-        >
-          <img
-            src="/allegroartisticleap/rock.png"
-            alt=""
-            decoding="async"
-            draggable={false}
-          />
-        </motion.div>
-      </motion.div>
 
-      {/* Darkness overlay for final transition */}
-      <motion.div
-        className="parallax-darkness"
-        style={{ opacity: darknessOpacity }}
-      />
     </div>
   );
 }

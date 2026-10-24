@@ -4,7 +4,7 @@ import "./HeroSection.css";
 
 const OVERLAY_SCALE   = 1.20;
 const OVERLAY_Y_SHIFT = -60;
-const X_SHIFT_DESIGN = 470; 
+const X_SHIFT_DESIGN  = 470;
 const BLOOM_SPEED     = 0.04;
 const CLOSE_SPEED     = 0.03;
 const DESIGN_SIZE     = 1024;
@@ -15,7 +15,6 @@ const FLOWERS = [
   { id: "right-rose",   folder: "RightFlower",      frames: 64, hitX: 380, hitY: 600, hitRadius: 200 },
   { id: "bottom-left",  folder: "ClusterCenter",    frames: 64, hitX: 460, hitY: 600, hitRadius: 160 },
   { id: "bottom-right", folder: "LeftFirstFlower",  frames: 64, hitX: 704, hitY: 600, hitRadius: 260 },
-  { id: "top-feather",  folder: "feather",          frames: 48, hitX: 512, hitY: 200, hitRadius: 180 },
 ];
 
 const ROLES = ["Computer Scientist", "AI Engineer", "3D Artist", "Digital Designer"];
@@ -62,7 +61,6 @@ const HeroNav: React.FC = () => {
   const scrolledRef = useRef(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
     let ticking = false;
     const onScroll = () => {
       if (!ticking) {
@@ -108,20 +106,14 @@ export default function HeroSection() {
   const [debug, setDebug] = useState(false);
   const prefersReducedMotion = useReducedMotion();
 
-  const readyRef = useRef(false);
-  const mouse    = useRef<{ x: number; y: number } | null>(null);
-  const contain  = useRef({ left: 0, top: 0, width: 0, height: 0, scale: 1 });
-  const raf      = useRef(0);
-  const cache    = useRef<Map<string, HTMLImageElement>>(new Map());
-  const stateRef = useRef<
-  const readyRef    = useRef(false);
+  const readyRef     = useRef(false);
   const isVisibleRef = useRef(true);
   const isLoopingRef = useRef(false);
-  const mouse       = useRef<{ x: number; y: number } | null>(null);
-  const contain     = useRef({ left: 0, top: 0, width: 0, height: 0, scale: 1 });
-  const raf         = useRef(0);
-  const cache       = useRef<Map<string, HTMLImageElement>>(new Map());
-  const stateRef    = useRef<
+  const mouse        = useRef<{ x: number; y: number } | null>(null);
+  const contain      = useRef({ left: 0, top: 0, width: 0, height: 0, scale: 1 });
+  const raf          = useRef(0);
+  const cache        = useRef<Map<string, HTMLImageElement>>(new Map());
+  const stateRef     = useRef<
     { cfg: (typeof FLOWERS)[number]; el: HTMLImageElement; progress: number; target: number; curFrame: number }[]
   >([]);
 
@@ -140,11 +132,10 @@ export default function HeroSection() {
     if (!s) return;
     const w = s.clientWidth;
     const h = s.clientHeight;
-    const aspect = 1;
     const stageAspect = w / h;
     let rw: number, rh: number;
-    if (stageAspect > aspect) { rh = h; rw = h * aspect; }
-    else { rw = w; rh = w / aspect; }
+    if (stageAspect > 1) { rh = h; rw = h; }
+    else { rw = w; rh = w; }
     contain.current = { left: (w - rw) / 2, top: (h - rh) / 2, width: rw, height: rh, scale: rw / DESIGN_SIZE };
     const r = s.getBoundingClientRect();
     stageRect.current = { left: r.left, top: r.top };
@@ -205,9 +196,7 @@ export default function HeroSection() {
       s.progress += (s.target - s.progress) * rate;
       if (Math.abs(s.target - s.progress) < 0.001) s.progress = s.target;
 
-      if (s.progress > 0.001 || s.target > 0) {
-        anyActive = true;
-      }
+      if (s.progress > 0.001 || s.target > 0) anyActive = true;
 
       const frame = Math.round(s.progress * (s.cfg.frames - 1)) + 1;
       if (frame !== s.curFrame) {
@@ -223,7 +212,6 @@ export default function HeroSection() {
       }
     });
 
-    // If mouse left and all flowers are settled closed, stop the loop to save CPU/battery
     if (!m && !anyActive) {
       isLoopingRef.current = false;
       return;
@@ -241,8 +229,7 @@ export default function HeroSection() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
-    const stage = stageRef.current;
+    const stage  = stageRef.current;
     if (!canvas || !stage) return;
 
     const onKey = (e: KeyboardEvent) => { if (e.key === "d" || e.key === "D") setDebug(v => !v); };
@@ -271,7 +258,6 @@ export default function HeroSection() {
         layoutOverlays();
         readyRef.current = true;
         setReady(true);
-        raf.current = requestAnimationFrame(tick);
         startLoop();
       }
     };
@@ -279,7 +265,7 @@ export default function HeroSection() {
     states.forEach((s) => {
       const img = getImg(s.cfg.folder, 1);
       const onLoad = () => { s.el.src = img.src; loaded++; tryStart(); };
-      const onErr = () => { console.warn(`Hero: missing ${s.cfg.folder}/frame_000001.png`); loaded++; tryStart(); };
+      const onErr  = () => { console.warn(`Hero: missing ${s.cfg.folder}/frame_000001.png`); loaded++; tryStart(); };
       if (img.complete && img.naturalWidth) onLoad();
       else { img.addEventListener("load", onLoad, { once: true }); img.addEventListener("error", onErr, { once: true }); }
     });
@@ -290,15 +276,10 @@ export default function HeroSection() {
         layoutOverlays();
         readyRef.current = true;
         setReady(true);
-        raf.current = requestAnimationFrame(tick);
         startLoop();
       }
     }, 3000);
 
-    const onMove = (e: MouseEvent) => { mouse.current = { x: e.clientX, y: e.clientY }; };
-    const onLeave = () => { mouse.current = null; };
-    const onResize = () => { computeContain(); layoutOverlays(); };
-    // Pause animation when hero section is not visible
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
@@ -316,26 +297,12 @@ export default function HeroSection() {
     );
     observer.observe(stage);
 
-    const onMove = (e: MouseEvent) => {
-      mouse.current = { x: e.clientX, y: e.clientY };
-      startLoop();
-    };
-
-    const onLeave = () => {
-      mouse.current = null;
-    };
-
-    const onResize = () => {
-      computeContain();
-      layoutOverlays();
-    };
+    const onMove = (e: MouseEvent) => { mouse.current = { x: e.clientX, y: e.clientY }; startLoop(); };
+    const onLeave = () => { mouse.current = null; };
+    const onResize = () => { computeContain(); layoutOverlays(); };
 
     let scrollTicking = false;
     const onScroll = () => {
-      const s = stageRef.current;
-      if (!s) return;
-      const r = s.getBoundingClientRect();
-      stageRect.current = { left: r.left, top: r.top };
       if (!scrollTicking && isVisibleRef.current) {
         scrollTicking = true;
         requestAnimationFrame(() => {
@@ -365,7 +332,6 @@ export default function HeroSection() {
       window.removeEventListener("keydown", onKey);
       states.forEach((s) => s.el.remove());
     };
-  }, [computeContain, layoutOverlays, tick, getImg]);
   }, [computeContain, layoutOverlays, tick, startLoop, getImg]);
 
   const debugCircles = (() => {
@@ -381,7 +347,7 @@ export default function HeroSection() {
     return FLOWERS.map((f) => {
       const cx = offsetX + f.hitX * designToScreen;
       const cy = offsetY + f.hitY * designToScreen;
-      const r = f.hitRadius * designToScreen;
+      const r  = f.hitRadius * designToScreen;
       return (
         <div key={f.id} className="hero__debug-circle" style={{ left: cx - r, top: cy - r, width: r * 2, height: r * 2 }}>
           <span>{f.id}</span>
@@ -396,10 +362,13 @@ export default function HeroSection() {
       <div ref={glowRef} className="hero-glow" />
 
       <div ref={stageRef} className="hero-showcase__stage">
-        {/* Swan shifted right; left side stays clean for text */}
         <img src={HERO_IMAGE} alt="Hero" draggable={false} className="hero-showcase__image" />
 
-        <div ref={canvasRef} className="hero-showcase__flowers" style={{ opacity: ready ? 1 : 0, transition: "opacity 0.7s ease" }} />
+        <div
+          ref={canvasRef}
+          className="hero-showcase__flowers"
+          style={{ opacity: ready ? 1 : 0, transition: "opacity 0.7s ease" }}
+        />
 
         {debug && <div className="hero-showcase__debug">{debugCircles}</div>}
 
@@ -430,7 +399,10 @@ export default function HeroSection() {
                 <a href="/allegroartisticleap/LalithResume.pdf" target="_blank" rel="noopener noreferrer" className="hero-showcase__button hero-showcase__button--primary">
                   View Resume<span className="hero-showcase__button-icon">→</span>
                 </a>
-                <button onClick={() => document.querySelector("[data-scroll-to=projectsContainer]")?.scrollIntoView({ behavior: "smooth" })} className="hero-showcase__button hero-showcase__button--secondary">
+                <button
+                  onClick={() => document.querySelector("[data-scroll-to=projectsContainer]")?.scrollIntoView({ behavior: "smooth" })}
+                  className="hero-showcase__button hero-showcase__button--secondary"
+                >
                   See Projects<span className="hero-showcase__button-icon">→</span>
                 </button>
               </motion.div>
