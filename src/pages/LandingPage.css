@@ -15,7 +15,6 @@
   --lp-radius: 16px;
   --lp-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
-  background: var(--lp-bg);
   color: var(--lp-text);
   font-family: var(--lp-font-body);
   line-height: 1.6;
@@ -664,11 +663,42 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   PROJECT LANDING PAGES (Standalone Full-Bleed Showcases)
+   ═══════════════════════════════════════════════════════════════ */
+.portfolio-upper-zone {
+  position: relative;
+}
+
+.project-showcase-zone {
+  position: relative;
+  z-index: 150; /* Covers ParallaxBackground (0), hero-glow (5), and SocialPanel (100); stays under .hero-nav (9999) */
+  width: 100%;
+}
+
+.project-landing-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--lp-bg);
+  color: var(--lp-text);
+  overflow-x: hidden;
+  isolation: isolate;
+  box-sizing: border-box;
+}
+
+.project-slide {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* ═══════════════════════════════════════════════════════════════
    FOOTER
    ═══════════════════════════════════════════════════════════════ */
 .footer {
   position: relative;
-  z-index: 10;
+  z-index: 150;
   border-top: 1px solid var(--lp-border);
   padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
   text-align: center;

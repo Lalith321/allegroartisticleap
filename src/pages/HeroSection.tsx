@@ -56,41 +56,116 @@ const RoleRotator: React.FC = () => {
 };
 
 /* ── Top Navigation ──────────────────────────────────────────── */
+interface NavOverride {
+  scrolled: boolean;
+  theme: string | null;
+  bg: string | null;
+  text: string | null;
+  border: string | null;
+}
+
 const HeroNav: React.FC = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const scrolledRef = useRef(false);
+  const [navState, setNavState] = useState<NavOverride>({
+    scrolled: false,
+    theme: null,
+    bg: null,
+    text: null,
+    border: null,
+  });
+  const stateRef = useRef<NavOverride>(navState);
 
   useEffect(() => {
     let ticking = false;
+    const evaluateNav = () => {
+      const isScrolled = window.scrollY > 60;
+      const navTriggerY = 56;
+      const themedZones = document.querySelectorAll<HTMLElement>(
+        "[data-nav-theme], [data-nav-bg], [data-nav-text], [data-nav-border]"
+      );
+
+      let activeZone: HTMLElement | null = null;
+      for (let i = 0; i < themedZones.length; i++) {
+        const rect = themedZones[i].getBoundingClientRect();
+        if (rect.top <= navTriggerY && rect.bottom > navTriggerY) {
+          activeZone = themedZones[i];
+        }
+      }
+
+      const next: NavOverride = {
+        scrolled: isScrolled,
+        theme: activeZone?.getAttribute("data-nav-theme") ?? null,
+        bg: activeZone?.getAttribute("data-nav-bg") ?? null,
+        text: activeZone?.getAttribute("data-nav-text") ?? null,
+        border: activeZone?.getAttribute("data-nav-border") ?? null,
+      };
+
+      const prev = stateRef.current;
+      if (
+        next.scrolled !== prev.scrolled ||
+        next.theme !== prev.theme ||
+        next.bg !== prev.bg ||
+        next.text !== prev.text ||
+        next.border !== prev.border
+      ) {
+        stateRef.current = next;
+        setNavState(next);
+      }
+      ticking = false;
+    };
+
     const onScroll = () => {
       if (!ticking) {
         ticking = true;
-        requestAnimationFrame(() => {
-          const isScrolled = window.scrollY > 60;
-          if (isScrolled !== scrolledRef.current) {
-            scrolledRef.current = isScrolled;
-            setScrolled(isScrolled);
-          }
-          ticking = false;
-        });
+        requestAnimationFrame(evaluateNav);
       }
     };
+
+    evaluateNav();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   const scrollTo = (selector: string) => {
     document.querySelector(selector)?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const customStyle: React.CSSProperties & Record<string, string> = {};
+  if (navState.bg) customStyle["--nav-custom-bg"] = navState.bg;
+  if (navState.text) customStyle["--nav-custom-text"] = navState.text;
+  if (navState.border) customStyle["--nav-custom-border"] = navState.border;
+
+  const navClasses = [
+    "hero-nav",
+    navState.scrolled ? "hero-nav--scrolled" : "",
+    navState.theme ? `hero-nav--theme-${navState.theme}` : "",
+    navState.bg ? "hero-nav--has-custom-bg" : "",
+    navState.text ? "hero-nav--has-custom-text" : "",
+    navState.border ? "hero-nav--has-custom-border" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <nav className={`hero-nav ${scrolled ? "hero-nav--scrolled" : ""}`}>
-      <div className="hero-nav__brand">Lalith Kumar</div>
+    <nav className={navClasses} style={customStyle}>
+      <div
+        className="hero-nav__brand"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      >
+        Lalith Kumar
+      </div>
       <div className="hero-nav__links">
-        <button onClick={() => scrollTo("[data-scroll-to=aboutContainer]")}>About</button>
-        <button onClick={() => scrollTo("[data-scroll-to=section3d]")}>Projects</button>
+        <button onClick={() => scrollTo(".aboutwhole")}>About</button>
         <button onClick={() => scrollTo(".myskills")}>Skills</button>
-        <button onClick={() => scrollTo(".footer")}>Contact</button>
+        <button onClick={() => scrollTo(".work-section")}>Projects</button>
       </div>
     </nav>
   );
@@ -400,7 +475,7 @@ export default function HeroSection() {
                   View Resume<span className="hero-showcase__button-icon">→</span>
                 </a>
                 <button
-                  onClick={() => document.querySelector("[data-scroll-to=projectsContainer]")?.scrollIntoView({ behavior: "smooth" })}
+                  onClick={() => document.querySelector(".work-section")?.scrollIntoView({ behavior: "smooth" })}
                   className="hero-showcase__button hero-showcase__button--secondary"
                 >
                   See Projects<span className="hero-showcase__button-icon">→</span>

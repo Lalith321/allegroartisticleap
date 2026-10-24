@@ -176,25 +176,31 @@ const WebPage: FunctionComponent = () => {
   const [activeTab, setActiveTab] = useState<typeof TABS[number]["id"]>("3d");
   const [contactOpen, setContactOpen] = useState(false);
 
-  const aboutRef      = useRef<HTMLElement>(null);
-  const skillsRef     = useRef<HTMLElement>(null);
-  const aboutLeftRef  = useRef<HTMLDivElement>(null);
-  const aboutRightRef = useRef<HTMLDivElement>(null);
+  const parallaxZoneRef = useRef<HTMLDivElement>(null);
+  const aboutRef        = useRef<HTMLElement>(null);
+  const skillsRef       = useRef<HTMLElement>(null);
+  const aboutLeftRef    = useRef<HTMLDivElement>(null);
+  const aboutRightRef   = useRef<HTMLDivElement>(null);
 
   const skillsInView     = useInView(skillsRef,     { once: true, amount: "some", margin: "-5% 0px -5% 0px" });
   const aboutLeftInView  = useInView(aboutLeftRef,  { once: true, amount: "some", margin: "-5% 0px -5% 0px" });
   const aboutRightInView = useInView(aboutRightRef, { once: true, amount: "some", margin: "-5% 0px -5% 0px" });
 
   const activeProjects = TABS.find((t) => t.id === activeTab)!.data as ProjectCard[];
-  const { scrollYProgress } = useScroll();
+  const { scrollYProgress } = useScroll({
+    target: parallaxZoneRef,
+    offset: ["start start", "end end"],
+  });
 
   return (
     <div className="landingpage-parent">
       <ParallaxBackground scrollProgress={scrollYProgress} />
       <SocialPanel open={contactOpen} setOpen={setContactOpen} />
-      <HeroSection />
 
-      <main className="page-main">
+      <div ref={parallaxZoneRef} className="portfolio-upper-zone">
+        <HeroSection />
+
+        <main className="page-main">
         {/* ── About ── */}
         <FadeSection className="aboutwhole" ref={aboutRef}>
           <motion.div
@@ -423,6 +429,17 @@ const WebPage: FunctionComponent = () => {
           </div>
         </FadeSection>
       </main>
+      </div>
+
+      {/* ── Custom Project Landing Pages (1–2 Slides Each) ── */}
+      <div className="project-showcase-zone">
+        {/* Import and render your standalone project landing page components here.
+            Example:
+            <section className="project-landing-page" data-nav-theme="dark">
+              <MyProjectLanding />
+            </section>
+        */}
+      </div>
 
       {/* ── Footer ── */}
       <footer className="footer">

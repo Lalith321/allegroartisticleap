@@ -72,7 +72,7 @@ export default function ParallaxBackground({ scrollProgress }: Props) {
       } else if ("decode" in img) {
         img.decode().then(applyFrame).catch(applyFrame);
       } else {
-        img.onload = applyFrame;
+        (img as HTMLImageElement).onload = applyFrame;
       }
 
       // Preload next 2 frames in scroll direction
